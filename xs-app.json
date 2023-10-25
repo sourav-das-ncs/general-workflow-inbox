@@ -10,6 +10,13 @@
             "authenticationType": "xsuaa"
         },
         {
+          "source": "^/docapprsrv/(.*)$",
+          "target": "/$1",
+          "destination": "DOC_APPR_SRV",
+          "authenticationType": "xsuaa",
+          "csrfProtection": false
+        },
+        {
             "source": "^/resources/(.*)$",
             "target": "/resources/$1",
             "authenticationType": "none",

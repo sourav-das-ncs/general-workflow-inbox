@@ -20,15 +20,10 @@
                 "uri": "/bpmworkflowruntime/public/workflow/odata/v1/tcm",
                 "type": "OData"
             },
-            "vendorService": {
-                "uri": "/sap/opu/odata4/sap/zcdss_bpvend_serv/srvd/sap/zcdss_expose_bp_vend/0001/",
+            "documentService": {
+                "uri": "/docapprsrv/service/general/",
                 "type": "OData",
                 "settings": {
-                    "annotations": [
-                        "annotation"
-                    ],
-                    "localUri": "localService/metadata.xml",
-                    "odataVersion": "2.0"
                 }
             }
         },
@@ -104,14 +99,10 @@
                 "preload": true,
                 "settings": {}
             },
-            "vendorService": {
-                "dataSource": "vendorService",
+            "documentService": {
+                "dataSource": "documentService",
                 "preload": true,
                 "settings": {
-                    "synchronizationMode": "None",
-                    "operationMode": "Server",
-                    "autoExpandSelect": true,
-                    "earlyRequests": true
                 }
             }
         },
@@ -176,6 +167,13 @@
                     ]
                 },
                 {
+                    "pattern": "da/{objectId}",
+                    "name": "da",
+                    "target": [
+                        "da"
+                    ]
+                },
+                {
                     "pattern": "Substitutes",
                     "name": "substitutes",
                     "target": [
@@ -227,6 +225,12 @@
                     "viewId": "PurchaseOrder",
                     "viewLevel": 2,
                     "title": "{i18n>PurchaseOrderTitle}"
+                },
+                "da": {
+                    "viewName": "DocumentApproval",
+                    "viewId": "DocumentApproval",
+                    "viewLevel": 2,
+                    "title": "{i18n>DocumentApprovalTitle}"
                 },
                 "substitutes": {
                     "viewName": "Substitutes",

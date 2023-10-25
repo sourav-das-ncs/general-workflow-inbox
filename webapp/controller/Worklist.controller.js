@@ -567,17 +567,19 @@ sap.ui.define([
         _showObject: function (oItem) {
             let sProcess = oItem.getBindingContext().getObject().TaskDefinitionID.split(".")[3];
             let sRoute = "";
-            if(sProcess === 'vendorBusinessPartner'){
+            if (sProcess === 'vendorBusinessPartner') {
                 sRoute = 'vendor';
-            }else if(sProcess === 'customerBusinessPartner') {
+            } else if (sProcess === 'customerBusinessPartner') {
                 sRoute = 'customer';
-            }else if(sProcess === 'salesEmpTagUntagProcess') {
+            } else if (sProcess === 'salesEmpTagUntagProcess') {
                 sRoute = 'sales';
-            }else if(sProcess === 'purchaseOrderProcess') {
+            } else if (sProcess === 'purchaseOrderProcess') {
                 sRoute = 'po';
+            } else if(sProcess === 'documentApprovalVerification') {
+                sRoute = 'da';
             }
 
-            
+
             this.getRouter().navTo(sRoute, {
                 objectId: oItem.getBindingContext().getPath().substring("/TaskCollection".length)
             });
@@ -586,7 +588,7 @@ sap.ui.define([
             //     objectId: oItem.getBindingContext().getPath().substring("/TaskCollection".length)
             // });
 
-          
+
 
 
             //component re-use navigation
@@ -606,7 +608,7 @@ sap.ui.define([
 
         },
 
-        navtovendor:function(){
+        navtovendor: function () {
             this.getRouter().navTo("detail", {
                 objectId: "(SAP__Origin='NA',InstanceID='b2e6d324-c7ab-11ed-a0c1-eeee0a8daf24')"
             }
