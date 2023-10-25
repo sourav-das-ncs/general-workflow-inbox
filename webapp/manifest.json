@@ -1,0 +1,265 @@
+{
+    "_version": "1.49.0",
+    "sap.app": {
+        "id": "com.ncs.btp.buildinbox",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:worklist",
+            "version": "1.9.1",
+            "toolsId": "07d37941-0654-411f-8f28-e8c95c181119"
+        },
+        "dataSources": {
+            "workflowService": {
+                "uri": "/bpmworkflowruntime/public/workflow/odata/v1/tcm",
+                "type": "OData"
+            },
+            "vendorService": {
+                "uri": "/sap/opu/odata4/sap/zcdss_bpvend_serv/srvd/sap/zcdss_expose_bp_vend/0001/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "annotation"
+                    ],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "com-ncs-btp-buildinbox-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "ncsBuildInbox",
+                    "action": "display",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
+                    "icon": "sap-icon://inbox",
+                    "indicatorDataSource": {
+                        "dataSource": "workflowService",
+                        "path": "TaskCollection/$count/?$filter=Status eq 'READY' or Status eq 'RESERVED' or Status eq 'IN_PROGRESS' or Status eq 'EXECUTED' ",
+                        "refresh": 15,
+                        "displayNumberUnit": ""
+                    }
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.111.1",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.f": {},
+                "sap.suite.ui.generic.template": {},
+                "sap.ui.comp": {},
+                "sap.ui.generic.app": {},
+                "sap.ui.table": {},
+                "sap.ushell": {}
+            }
+        },
+        "componentUsages": {
+            
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "com.ncs.btp.buildinbox.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "workflowService",
+                "preload": true,
+                "settings": {}
+            },
+            "vendorService": {
+                "dataSource": "vendorService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "viewPath": "com.ncs.btp.buildinbox.view",
+                "controlId": "app",
+                "controlAggregation": "pages",
+                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                },
+                "async": true
+            },
+            "routes": [
+                {
+                    "pattern": "",
+                    "name": "worklist",
+                    "target": [
+                        "worklist"
+                    ]
+                },
+                {
+                    "pattern": "TaskCollection/{objectId}",
+                    "name": "object",
+                    "target": [
+                        "object"
+                    ]
+                },
+                {
+                    "pattern": "vendor/{objectId}",
+                    "name": "vendor",
+                    "target": [
+                        "vendor"
+                    ]
+                },
+                {
+                    "pattern": "customer/{objectId}",
+                    "name": "customer",
+                    "target": [
+                        "customer"
+                    ]
+                },
+                {
+                    "pattern": "sales/{objectId}",
+                    "name": "sales",
+                    "target": [
+                        "sales"
+                    ]
+                },
+                {
+                    "pattern": "po/{objectId}",
+                    "name": "po",
+                    "target": [
+                        "po"
+                    ]
+                },
+                {
+                    "pattern": "Substitutes",
+                    "name": "substitutes",
+                    "target": [
+                        "substitutes"
+                    ]
+                },
+                {
+                    "pattern": "detail/{objectId}",
+                    "name": "detail",
+                    "target": [{
+						"name": "vendorTarget",
+						"prefix": "v"
+					}]
+                }
+            ],
+            "targets": {
+                "worklist": {
+                    "viewName": "Worklist",
+                    "viewId": "worklist",
+                    "viewLevel": 1,
+                    "title": "{i18n>worklistViewTitle}"
+                },
+                "object": {
+                    "viewName": "Object",
+                    "viewId": "object",
+                    "viewLevel": 2,
+                    "title": "{i18n>objectViewTitle}"
+                },
+                "vendor": {
+                    "viewName": "VendorBP",
+                    "viewId": "VendorBP",
+                    "viewLevel": 2,
+                    "title": "{i18n>VendorBPViewTitle}"
+                },
+                "customer": {
+                    "viewName": "CustomerBP",
+                    "viewId": "CustomerBP",
+                    "viewLevel": 2,
+                    "title": "{i18n>VendorBPViewTitle}"
+                },
+                "sales": {
+                    "viewName": "SalesTagUntag",
+                    "viewId": "SalesTagUntag",
+                    "viewLevel": 2,
+                    "title": "{i18n>SalesTagUntagTitle}"
+                },
+                "po": {
+                    "viewName": "PurchaseOrder",
+                    "viewId": "PurchaseOrder",
+                    "viewLevel": 2,
+                    "title": "{i18n>PurchaseOrderTitle}"
+                },
+                "substitutes": {
+                    "viewName": "Substitutes",
+                    "viewId": "substitutes",
+                    "viewLevel": 2,
+                    "title": "{i18n>SubstituteTitle}"
+                },
+                "remoteTarget": {
+                    "viewType": "XML",
+                    "viewName": "RemoteView",
+                    "clearControlAggregation": false,
+                    "viewId": "remoteTarget"
+                },
+                "objectNotFound": {
+                    "viewName": "ObjectNotFound",
+                    "viewId": "objectNotFound"
+                },
+                "notFound": {
+                    "viewName": "NotFound",
+                    "viewId": "notFound"
+                }
+                
+            }
+        },
+        "rootView": {
+            "viewName": "com.ncs.btp.buildinbox.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "app"
+        }
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "comncsbtpbuildinbox"
+    }
+}

@@ -1,0 +1,238 @@
+<mvc:View controllerName="com.ncs.btp.buildinbox.controller.Worklist" height="100%"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:vm="sap.ui.comp.variants"
+    xmlns:mc="sap.suite.ui.microchart"
+    xmlns:tnt="sap.tnt"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:layout="sap.ui.layout"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data">
+
+
+
+    <f:DynamicPage id="dynamicPageId" headerExpanded="{/headerExpanded}">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <vm:VariantManagement standardItemText="My Task List">
+                    </vm:VariantManagement>
+                </f:heading>
+                <f:actions>
+                    <ToolbarSpacer/>
+                    <!-- <Button text="Manage My Substitutes" icon="sap-icon://collaborate" type="Emphasized" press="onManageSubstitutes"/>
+                    <Button text="Substitute For" icon="sap-icon://action" type="Transparent" press="onPressSubstitutesFor"/> -->
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <!-- DynamicPage Header -->
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <f:content>
+                    <fb:FilterBar id="filterbar" reset="onReset" search="onFilterSearch" useToolbar="false" showGoOnFB="true">
+                        <fb:filterItems>
+                            <!-- <fb:FilterItem name="A1" label="Search Text">
+                                <fb:control>
+                                    <Input value=""></Input>
+                                </fb:control>
+                            </fb:FilterItem> -->
+                            <fb:FilterItem name="TaskDefinitionID" label="Task Type">
+                                <fb:control>
+                                    <Select id="slName" forceSelection="true" change="onFilterTasks" items="{
+                                                    path: 'WFDefinitionList>/'
+                                                }" >
+                                        <core:Item key="{WFDefinitionList>id}" text="{WFDefinitionList>name}"/>
+                                    </Select>
+                                </fb:control>
+                            </fb:FilterItem>
+                            <fb:FilterItem name="CreatedOn" label="Date Range">
+                                <fb:control>
+                                    <DateRangeSelection id="DRS2" change="handleChange"/>
+                                </fb:control>
+                            </fb:FilterItem>
+                            <fb:FilterItem name="CreatedBy" label="Requested By">
+                                <fb:control>
+                                    <Select id="slSupplierName" change="onSelectChange" forceSelection="true">
+
+                                        <!-- <core:Item key="trim.bandaru@gmail.com" text="trim.bandaru@gmail.com"/> -->
+                                    </Select>
+                                </fb:control>
+                            </fb:FilterItem>
+                        </fb:filterItems>
+                    </fb:FilterBar>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+
+        <!-- DynamicPage Content -->
+        <f:content>
+            <l:VerticalLayout class="sapUiSmallMargin" width="100%">
+                <!-- <l:VerticalLayout width="100%" class=""> -->
+                    <l:Grid containerQuery="true" vSpacing="0">
+                        <!-- <VBox > -->
+                            <l:FixFlex id='chartFixFlex' minFlexSize="200">
+                                <l:flexContent>
+                                    <viz:Popover ></viz:Popover>
+                                    <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" vizType='pie'>
+                                        <viz:dataset>
+                                            <viz.data:FlattenedDataset data="{StatusCountModel>/}">
+                                                <viz.data:dimensions>
+                                                    <viz.data:DimensionDefinition name="Status" value="{status}" />
+                                                </viz.data:dimensions>
+                                                <viz.data:measures>
+                                                    <viz.data:MeasureDefinition name="Count" value="{count}" />
+                                                </viz.data:measures>
+                                            </viz.data:FlattenedDataset>
+                                        </viz:dataset>
+
+                                        <viz:feeds>
+                                            <viz.feeds:FeedItem uid="size" type="Measure" values="Count" />
+                                            <viz.feeds:FeedItem uid="color" type="Dimension" values="Status" />
+                                        </viz:feeds>
+                                    </viz:VizFrame>
+                                </l:flexContent>
+                                <l:layoutData>
+                                <l:GridData span="XL6 L6 M6 S12"/>
+                            </l:layoutData>
+                            </l:FixFlex>
+                            <!-- <layoutData>
+                                <l:GridData span="XL6 L6 M6 S12"/>
+                            </layoutData>
+                        </VBox>
+                        <VBox> -->
+                            <l:FixFlex id='chartFixFlex1' minFlexSize="200">
+                                <l:flexContent>
+                                    <!-- <viz:Popover id="idPopOver1"></viz:Popover> -->
+                                    <viz:VizFrame id="idVizFrame1" height='100%' width="100%" uiConfig="{applicationSet:'fiori'}" vizType='stacked_column'>
+                                        <viz:dataset>
+                                            <viz.data:FlattenedDataset data="{ProcessCountModel>/}">
+                                                <viz.data:dimensions>
+                                                    <viz.data:DimensionDefinition name="Process" value="{process}" />
+                                                    <viz.data:DimensionDefinition name="Process Name" value="{process}" />
+                                                </viz.data:dimensions>
+                                                <viz.data:measures>
+                                                    <viz.data:MeasureDefinition name="Count" value="{count}" />
+
+                                                </viz.data:measures>
+                                            </viz.data:FlattenedDataset>
+                                        </viz:dataset>
+                                        <viz:feeds>
+                                            <viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure" values="Count" />
+                                            <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Process" />
+                                            <viz.feeds:FeedItem uid="color" type="Dimension" values="Process Name" />
+                                        </viz:feeds>
+                                    </viz:VizFrame>
+                                </l:flexContent>
+                                <l:layoutData>
+                                <l:GridData span="XL6 L6 M6 S12"/>
+                            </l:layoutData>
+                            </l:FixFlex>
+                            <!-- <layoutData>
+                                <l:GridData span="XL6 L6 M6 S12"/>
+                            </layoutData> -->
+                        <!-- </VBox> -->
+                    </l:Grid>
+                <!-- </l:VerticalLayout> -->
+
+
+                <Table id="idProductsTable" inset="false" mode="MultiSelect" width="auto" items="{ path: '/TaskCollection', 
+							parameters:{expand: 'CustomAttributeData,TaskDefinitionData,Description',
+							select :'SupportsForward,TaskDefinitionID,TaskDefinitionName,CustomAttributeData,CreatedOn,CompletionDeadLine,CreatedBy,TaskTitle,Priority,Status,SAP__Origin,InstanceID'}, 
+							filters: [{ path: 'Status', operator: 'EQ', value1: 'RESERVED', and: false },{ path: 'Status', operator: 'EQ', value1: 'READY', and: false }], 
+							sorters : [{ path : 'PriorityNumber'},{ path : 'CreatedOn',descending: true} ]}" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{worklistView>/tableNoDataText}" busyIndicatorDelay="{worklistView>/tableBusyDelay}" growing="true" growingScrollToLoad="true" updateFinished=".onUpdateFinished" selectionChange="onSelectRows">
+                    <headerToolbar>
+                        <OverflowToolbar>
+
+                            <Title text="{worklistView>/worklistTableTitle}" level="H2"/>
+                            <!-- <Button text="navigate" press="navtovendor"></Button> -->
+                            <ToolbarSpacer/>
+                            <!-- <Button enabled="{worklistView>/mass}" type="Accept" text="Approve" press="onMassAccept"/>
+                            <Button enabled="{worklistView>/mass}" type="Reject" text="Reject" press="onMassReject"/> -->
+                            <Button tooltip="Refresh" icon="sap-icon://refresh" press="onRefresh"/>
+                            <Button tooltip="Sort" icon="sap-icon://sort" press="handleSortButtonPressed"/>
+                            <Button tooltip="Filter" icon="sap-icon://filter" press="handleFilterButtonPressed"/>
+
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    	<infoToolbar>
+					<OverflowToolbar id="vsdFilterBar" visible="false">
+						<Text id="vsdFilterLabel" />
+					</OverflowToolbar>
+				</infoToolbar>
+
+                    <columns>
+                        <Column minScreenWidth="Tablet" demandPopin="true">
+                            <Text text="Task Details"/>
+                        </Column>
+                    </columns>
+
+                    <items>
+                        <ColumnListItem vAlign="Middle" type="Navigation" press=".onPress">
+                            <cells>
+
+                                <!-- <l:VerticalLayout width="100%" class="gridWrapper"> -->
+                                <l:Grid containerQuery="true">
+                                    <VBox justifyContent="SpaceBetween">
+                                        <HBox justifyContent="SpaceBetween">
+                                            <core:Icon src="sap-icon://flag" class="priorityFlag" color="{= ${TaskDefinitionName} !== 'Manager Review' ? '#C70039' : '#228B22' }" tooltip="Task Priority">
+                                                <core:layoutData>
+                                                    <FlexItemData growFactor="1"/>
+                                                </core:layoutData>
+                                            </core:Icon>
+                                            <Avatar src="{ path: 'TaskDefinitionName', formatter: '.formatter.getIcon' }" displaySize="L" press="onPress" backgroundColor="Transparent"/>
+                                            <VBox width="30em">
+                                                <ObjectIdentifier title="{TaskTitle}" text="{taskDescription}" titleActive="true" titlePress="onPressOpenRequest"/>
+                                                <Text text="{path: 'TaskDefinitionName'}"/>
+                                                <ObjectAttribute title="Requested By" text="{CreatedBy}"/>
+                                                <ObjectAttribute title="Submitted Date" text="{ path: 'CreatedOn', type: 'sap.ui.model.type.DateTime', formatOptions: { style: 'short' } }"/>
+                                            </VBox>
+                                        </HBox>
+                                        <!-- <tnt:InfoLabel text="{ path: 'CreatedOn', type: 'sap.ui.model.type.DateTime', formatOptions: { style: 'short' } }" colorScheme="6" width="140px" displayOnly="true" visible="true"/> -->
+                                        <tnt:InfoLabel text="{ path: 'CompletionDeadLine', type: 'sap.ui.model.type.DateTime', formatOptions: { style: 'short' }}" colorScheme="6" width="10em" displayOnly="true" visible="true"/>
+                                        <layoutData>
+                                            <l:GridData span="L4 M5 S12"/>
+                                        </layoutData>
+                                    </VBox>
+                                    <l:VerticalLayout>
+                                        <l:VerticalLayout id="layout" width="30em" class="sapUiNoMarginBegin" content="{ path: 'CustomAttributeData', factory: '.taskAttributeFactory' }"/>
+                                        <!-- <Link text="Process Details Display" press="onClickProcessDetailsLink" visible="true"/> -->
+                                        <l:layoutData>
+                                            <l:GridData span="L4 M5 S12"/>
+                                        </l:layoutData>
+                                    </l:VerticalLayout>
+
+
+                                    <VBox alignItems="{=${device>/system/phone}? 'Start':'End'}" justifyContent="SpaceBetween" direction="Column">
+                                        <tnt:InfoLabel text="{Priority} - {Status}" colorScheme="6" width="10em" displayOnly="true"/>
+                                        <ToolbarSpacer/>
+                                        <OverflowToolbar style="Clear" class="sapUiNoMargin">
+                                            <!-- <Button icon="sap-icon://accept" type="Accept" press="onApprove" visible="{TaskRequests>isActionVisible}"/>
+                                                <Button icon="sap-icon://decline" type="Reject" press="onReject" visible="{TaskRequests>isActionVisible}"/>
+                                                <Button text="{i18n>Inbox.Action.Forward}" press="onForward" visible="{TaskRequests>isForwardVisible}"/>
+                                                <Button icon="sap-icon://detail-view" press="onAccessTask" visible="{ path: 'TaskDefinitionName', formatter: '.formatter.isNavigationAllowed' }"/> -->
+                                            <Button icon="sap-icon://accept" type="Accept" press="onAccept" />
+                                            <Button icon="sap-icon://decline" type="Reject" press="onReject" visible="true"/>
+                                            <Button icon="{= ${Status} === 'READY' ? 'sap-icon://locked':'sap-icon://unlocked'}" press="onClaimRelease" visible="true"/>
+                                            <Button icon="sap-icon://forward" tooltip="Forward Task" press="onForward" visible="{SupportsForward}"/>
+                                            <!-- <Button icon="sap-icon://detail-view" press="onAccessTask" visible="{ path: 'TaskDefinitionName', formatter: '.formatter.isNavigationAllowed' }"/> -->
+                                        </OverflowToolbar>
+                                        <layoutData>
+                                            <l:GridData span="L4 M2 S12"/>
+                                        </layoutData>
+                                    </VBox>
+                                </l:Grid>
+                              
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </l:VerticalLayout>
+        </f:content>
+    </f:DynamicPage>
+
+</mvc:View>

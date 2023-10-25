@@ -1,0 +1,14 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ViewSettingsDialog
+		confirm="handleSortDialogConfirm">
+		<sortItems>
+			<ViewSettingsItem text="Created By" key="CreatedByName"  />
+			<ViewSettingsItem text="Priority" key="PriorityNumber" />
+			<ViewSettingsItem text="Title" key="TaskTitle" />
+			<ViewSettingsItem text="Created On" key="CreatedOn" selected="true"/>
+            <ViewSettingsItem text="Due On" key="CompletionDeadLine" />
+		</sortItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>

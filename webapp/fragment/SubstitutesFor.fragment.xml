@@ -1,0 +1,34 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:cmmns="sap.ui.commons" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form"
+	xmlns:u="sap.ui.unified">
+	<Dialog class="sapUiSizeCompact" contentHeight="40em" contentWidth="30em"
+		title="Substitutes">
+		<content>
+			<!-- <List items="{ path:'/SubstitutesRuleCollection'}" > -->
+            <List >
+				<items>
+					<ObjectListItem title="John"  type="Inactive">
+						<ObjectAttribute text="S0009344"/> 
+                        <ObjectAttribute title="Process" text="poprocess"/> 
+						<ObjectAttribute title="Duration" text="09-Jun-2022 to 15-Jun-2022"/>
+						<firstStatus>
+							<ObjectStatus text="Active" state="Success"/>
+						</firstStatus>
+						<attributes></attributes>
+					</ObjectListItem>
+                    <ObjectListItem title="Rohan"  type="Inactive">
+						<ObjectAttribute text="S0012388"/> 
+                        <ObjectAttribute title="Process" text="poprocess"/> 
+						<ObjectAttribute title="Duration" text="21-Apr-2022 to 23-Apr-2022"/>
+						<firstStatus>
+							<ObjectStatus text="Active" state="Success"/>
+						</firstStatus>
+						<attributes></attributes>
+					</ObjectListItem>
+				</items>
+			</List>
+		</content>
+		<buttons>
+			<Button text="Close" press="closeSubstForDialog"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

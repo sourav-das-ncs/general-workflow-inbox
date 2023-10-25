@@ -1,0 +1,67 @@
+<core:FragmentDefinition controllerName="com.custominbox.custominboxui.controller.Substitutes"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:layout="sap.ui.layout"
+    xmlns:sap.ca.ui="sap.ca.ui"
+    xmlns:suite="sap.suite.ui.commons">
+    <Dialog xmlns="sap.m"
+        xmlns:l="sap.ui.layout"
+        xmlns:f="sap.ui.layout.form"
+        xmlns:core="sap.ui.core"
+        xmlns:u="sap.ui.unified" contentWidth="400px" contentHeight="650px" beforeClose="onBeforeCloseDialog" showHeader="false">
+        <NavContainer id="NAV_ADD_SUBST">
+            <Page id="detail_substitutes" showNavButton="false" navButtonPress="onNavBack" title="Substitutes">
+                <subHeader>
+                    <Toolbar>
+                        <SearchField search="onSearchUsers" placeholder="search user"/>
+                    </Toolbar>
+                </subHeader>
+                <content>
+                    <List id="subsUserListId" items="{userModel>/}" showNoData="true">
+                        <StandardListItem title="{userModel>DisplayName}" description="{userModel>UniqueName}" icon="sap-icon://employee" iconDensityAware="false" type="Active" press="handleUserSelectionChange" detailPress="handleUserDetailPress"></StandardListItem>
+                    </List>
+                </content>
+            </Page>
+            <Page id="detail_profiles" showNavButton="true" navButtonPress="onNavBack" title="Select Task">
+                <content>
+                    <List id="LST_USR_DATA">
+                        <items>
+                            <StandardListItem title="{/DisplayName}" description="{/company}" icon="sap-icon://employee" iconDensityAware="false" iconInset="false"/>
+                        </items>
+                    </List>
+                    <!-- <List id="LST_ALL_TOPICS" mode="SingleSelectMaster" selectionChange="onSelectAllTopics">
+						<StandardListItem id="ITM_ALL_TOPICS" title="{i18n>substn.create.all_topics}" type="{path:'substitutionTypeModel>/data/bPlanned', formatter:'cross.fnd.fiori.inbox.Substitution.formatterPlannedOrUnplannedNavigation'}"/>
+					</List> -->
+                    <List id="LST_PROFILES" showNoData="true" items="{WFDefinitionList>/}">
+                        <StandardListItem id="ITM_PROFILE" title="{WFDefinitionList>name}" type="Active" press="handleTaskSelectionChange"/>
+                    </List>
+                </content>
+            </Page>
+            <Page id="date_selection" showNavButton="true" navButtonPress="onNavBack" title="Choose Substitution Period">
+                <List id="LST_SUBS_DATA" showSeparators="None">
+                    <items>
+                        <!--<core:Fragment fragmentName="cross.fnd.fiori.inbox.frag.SubstituteProfile" type="XML"/>-->
+                        <StandardListItem title="{/DisplayName}" description="{/UniqueName}" icon="sap-icon://employee" iconDensityAware="false" iconInset="false"/>
+                        <StandardListItem title="Task Name" icon="sap-icon://appointment-2" iconInset="false" description="{/taskName}"/>
+                        <StandardListItem icon="sap-icon://activity-items" iconInset="false" title="Substitution Period" description="{/period}"/>
+                    </items>
+                </List>
+                <content>
+                    <!-- <MessageStrip id="substMStripId" class="sapUiMediumMarginBottom" showCloseButton="false" showIcon="true"></MessageStrip> -->
+                    <FlexBox alignItems="Center" justifyContent="Center">
+                        <items>
+                            <u:Calendar id="selectionCalendar" intervalSelection="true" selectionMode="RANGE" select="onChangeRange"></u:Calendar>
+                        </items>
+                    </FlexBox>
+                </content>
+            </Page>
+        </NavContainer>
+        <beginButton>
+            <Button text="Save" visible="{/isSaveSubstnVisible}" press="onPressSaveSubstnRule"/>
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press="onPressCancelSubstnRule"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

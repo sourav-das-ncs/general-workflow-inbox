@@ -1,0 +1,583 @@
+<mvc:View controllerName="com.ncs.btp.buildinbox.controller.VendorBP"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core" height="100%">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false" showFooter="true">
+        <uxap:headerTitle>
+            <!-- <uxap:ObjectPageHeader objectTitle="Section sample">
+			</uxap:ObjectPageHeader> -->
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <Title text="{TaskDetails>/subject}" wrapping="true"/>
+                </uxap:expandedHeading>
+
+                <uxap:snappedHeading>
+                    <FlexBox fitContainer="true" alignItems="Center">
+                        <!-- <Avatar src="sap-icon://picture" backgroundColor="Random" class="sapUiTinyMarginEnd"/> -->
+                        <Title text="{TaskDetails>/subject}" wrapping="true" />
+                    </FlexBox>
+                </uxap:snappedHeading>
+
+                <uxap:expandedContent>
+                    <Text text="{TaskDetails>/subject}"/>
+                </uxap:expandedContent>
+
+                <uxap:snappedContent>
+                    <Text text="{TaskDetails>/subject}"/>
+                </uxap:snappedContent>
+
+                <uxap:snappedTitleOnMobile>
+                    <Title text="{TaskDetails>/subject}"/>
+                </uxap:snappedTitleOnMobile>
+
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:headerContent>
+            <FlexBox wrap="Wrap">
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <ObjectStatus title="Requested By" text="{TaskDetails>/createdBy}"/>
+                    <ObjectStatus title="Requested On" text="{ path: 'TaskDetails>/createdAt', type: 'sap.ui.model.type.DateTime', formatOptions: { style: 'short' }}"/>
+
+                </l:VerticalLayout>
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
+
+                    <ObjectStatus title="Status" text="{TaskDetails>/status}"/>
+                    <ObjectStatus title="Priority" text="{TaskDetails>/priority}"/>
+                </l:VerticalLayout>
+            </FlexBox>
+            <!-- <ObjectAttribute title="" text="This example explains the rules for the rendering of sections"/> -->
+        </uxap:headerContent>
+
+        <uxap:sections>
+            <uxap:ObjectPageSection titleUppercase="false" title="Business Partner Details">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection titleUppercase="false">
+                        <uxap:blocks>
+                            <f:Form editable="false">
+                                <f:title>
+                                    <!-- <core:Title text="Basic Details" /> -->
+                                </f:title>
+                                <f:layout>
+                                    <f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false" />
+                                </f:layout>
+                                <f:formContainers>
+                                    <f:FormContainer title="Basic Details">
+                                        <f:formElements>
+                                            <f:FormElement label="Vendor Grouping">
+                                                <f:fields>
+                                                    <Text text="{vendorService>BuGroup}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Vendor Business Partner ">
+                                                <f:fields>
+                                                    <Text text="{vendorService>Partner}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Company Code ">
+                                                <f:fields>
+                                                    <Text text="{vendorService>Bukrs}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Name1">
+                                                <f:fields>
+                                                    <Text text="{vendorService>Name1}"/>
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Name2">
+                                                <f:fields>
+                                                    <Text text="{vendorService>Name2}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Search Term ">
+                                                <f:fields>
+                                                    <Text text="{vendorService>SearchTerm}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Trading Partner">
+                                                <f:fields>
+                                                    <Text text="{vendorService>TradePartner}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                        </f:formElements>
+                                    </f:FormContainer>
+                                    <f:FormContainer title="Address">
+                                        <f:formElements>
+                                            <f:FormElement label="Street 2 ">
+                                                <f:fields>
+                                                    <Text text="{vendorService>Street2}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Street 3 ">
+                                                <f:fields>
+                                                    <Text text="{vendorService>Street3}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Street 4 ">
+                                                <f:fields>
+                                                    <Text text="{vendorService>Street4}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Street 5 ">
+                                                <f:fields>
+                                                    <Text text="{vendorService>Street5}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Postal Code ">
+                                                <f:fields>
+                                                    <Text text="{vendorService>Postalcode}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="City">
+                                                <f:fields>
+                                                    <Text text="{vendorService>City}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Country/Region Key ">
+                                                <f:fields>
+                                                    <Text text="{vendorService>Country}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Region">
+                                                <f:fields>
+                                                    <Text text="{vendorService>Region}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Language Key">
+                                                <f:fields>
+                                                    <Text text="{vendorService>Language}" />
+                                                </f:fields>
+                                            </f:FormElement>
+
+                                        </f:formElements>
+                                    </f:FormContainer>
+                                    <f:FormContainer title="Communication">
+                                        <f:formElements>
+                                            <f:FormElement label="Telephone ">
+                                                <f:fields>
+                                                    <Text text="{vendorService>TelNumber}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Fax ">
+                                                <f:fields>
+                                                    <Text text="{vendorService>Fax}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Email Address ">
+                                                <f:fields>
+                                                    <Text text="{vendorService>Email}" />
+                                                </f:fields>
+                                            </f:FormElement>
+
+
+                                        </f:formElements>
+                                    </f:FormContainer>
+                                </f:formContainers>
+                            </f:Form>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+
+            <uxap:ObjectPageSection titleUppercase="false" title="Tax Number">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection titleUppercase="false">
+                        <uxap:blocks>
+                            <Table inset="false" items="{
+                                    path: 'vendorService>_toTaxData',
+                                    sorter: {
+                                        path: 'Requestno'
+                                    }
+                                }">
+                                <headerToolbar>
+                                    <OverflowToolbar>
+                                        <content>
+                                            <!-- <Title text="Products" level="H2"/> -->
+                                            <ToolbarSpacer />
+
+                                        </content>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+
+                                <columns>
+                                    <Column width="12em">
+                                        <Text text="Tax Number Category" />
+                                    </Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true">
+                                        <Text text="Name" />
+                                    </Column>
+                                    <Column minScreenWidth="Desktop" demandPopin="true" hAlign="End">
+                                        <Text text="Tax Number" />
+                                    </Column>
+                                    <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+                                        <Text text="Business Partner" />
+                                    </Column>
+                                    <Column hAlign="End">
+                                        <Text text="Request Number" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem vAlign="Middle">
+                                        <cells>
+
+                                            <Text text="{vendorService>TaxCategory}" />
+                                            <Text text="{vendorService>Name}" />
+                                            <Text text="{vendorService>TaxNumber}" />
+                                            <Text text="{vendorService>Partner}" />
+                                            <Text text="{vendorService>Requestno}" />
+
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+
+
+
+            <uxap:ObjectPageSection titleUppercase="false" title="Bank Details">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection titleUppercase="false">
+                        <uxap:blocks>
+                            <Table inset="false" items="{
+                                    path: 'vendorService>_toBankData',
+                                    sorter: {
+                                        path: 'Requestno'
+                                    }
+                                }">
+                                <headerToolbar>
+                                    <OverflowToolbar>
+                                        <content>
+                                            <!-- <Title text="Products" level="H2"/> -->
+                                            <ToolbarSpacer />
+
+                                        </content>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+
+                                <columns>
+                                    <Column width="12em">
+                                        <Text text="Bank Details ID" />
+                                    </Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true">
+                                        <Text text="Bank Country/Region" />
+                                    </Column>
+                                    <Column minScreenWidth="Desktop" demandPopin="true" hAlign="End">
+                                        <Text text="Bank Key" />
+                                    </Column>
+                                    <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+                                        <Text text="Bank Acc" />
+                                    </Column>
+                                    <Column >
+                                        <Text text="Account Holder" />
+                                    </Column>
+                                    <Column >
+                                        <Text text="Valid From" />
+                                    </Column>
+                                    <Column >
+                                        <Text text="Valid To" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem vAlign="Middle">
+                                        <cells>
+
+                                            <Text text="{vendorService>Bankid}" />
+                                            <Text text="{vendorService>Country}" />
+                                            <Text text="{vendorService>Bankkey}" />
+                                            <Text text="{vendorService>BankAcc}" />
+                                            <Text text="{vendorService>AccHolder}" />
+                                            <Text text="{vendorService>Validfrom}" />
+                                            <Text text="{vendorService>Validto}" />
+
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+
+
+
+            <uxap:ObjectPageSection titleUppercase="false" title="Payment Transaction">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection titleUppercase="false">
+                        <uxap:blocks>
+                            <f:Form editable="false">
+                                <f:title>
+                                    <!-- <core:Title text="Supplier" /> -->
+                                </f:title>
+                                <f:layout>
+                                    <f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false" />
+                                </f:layout>
+                                <f:formContainers>
+                                    <f:FormContainer title="">
+                                        <f:formElements>
+                                            <f:FormElement label="Term of Payment  ">
+                                                <f:fields>
+                                                    <Text text="{vendorService>PayTerm}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Check Double Invoice  ">
+                                                <f:fields>
+                                                    <Text text="{vendorService>CheckDoubleInv}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Payment Method ">
+                                                <f:fields>
+                                                    <Text text="{vendorService>paymentmethod}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <!-- <f:FormElement label="Email for Invoice Correspondence  ">
+                                                <f:fields>
+                                                    <Text text="{ZIPCode}" />
+                                                </f:fields>
+                                            </f:FormElement> -->
+
+
+                                        </f:formElements>
+                                    </f:FormContainer>
+
+
+                                </f:formContainers>
+                            </f:Form>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection titleUppercase="false" title="Purchase Data">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection titleUppercase="false">
+                        <uxap:blocks>
+                            <f:Form editable="false">
+                                <f:title>
+                                    <!-- <core:Title text="Supplier" /> -->
+                                </f:title>
+                                <f:layout>
+                                    <f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false" />
+                                </f:layout>
+                                <f:formContainers>
+                                    <f:FormContainer title="">
+                                        <f:formElements>
+                                            <f:FormElement label="Purchasing Organisation ">
+                                                <f:fields>
+                                                    <Text text="{vendorService>Purchaseorg}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Order Currency  ">
+                                                <f:fields>
+                                                    <Text text="{vendorService>OrderCurr}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <!-- <f:FormElement label="GR Based Invoice Verification  ">
+                                                <f:fields>
+                                                    <Text text="{ZIPCode} {City}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Acknowledgement Requirement ">
+                                                <f:fields>
+                                                    <Text text="{ZIPCode} {City}" />
+                                                </f:fields>
+                                            </f:FormElement> -->
+
+
+                                        </f:formElements>
+                                    </f:FormContainer>
+
+
+                                </f:formContainers>
+                            </f:Form>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection titleUppercase="false" title="APCR Data">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection titleUppercase="false">
+                        <uxap:blocks>
+                            <f:Form editable="false">
+                                <f:title>
+                                    <core:Title text="For APCR Use Only" />
+                                </f:title>
+                                <f:layout>
+                                    <f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false" />
+                                </f:layout>
+                                <f:formContainers>
+                                    <f:FormContainer title="">
+                                        <f:formElements>
+                                            <!-- <f:FormElement label="Incorterm">
+                                                <f:fields>
+                                                    <Text text="{SupplierName}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Minimum Order Value  ">
+                                                <f:fields>
+                                                    <Text text="{Street} {HouseNumber}" />
+                                                </f:fields>
+                                            </f:FormElement> -->
+                                            <f:FormElement label="Price Date Control ">
+                                                <f:fields>
+                                                    <Text text="{vendorService>PriceDatCtr}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Document Index Active ">
+                                                <f:fields>
+                                                    <Text text="{vendorService>DocIndexAct}" />
+                                                </f:fields>
+                                            </f:FormElement>
+
+
+                                        </f:formElements>
+                                    </f:FormContainer>
+
+
+                                </f:formContainers>
+                            </f:Form>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection visible="{objectView>/isFinalApprover}" titleUppercase="false" title="For Finance Use Only">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection titleUppercase="false">
+                        <uxap:blocks>
+                            <f:Form editable="false">
+                                <f:title>
+                                    <!-- <core:Title text="Supplier" /> -->
+                                </f:title>
+                                <f:layout>
+                                    <f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false" />
+                                </f:layout>
+                                <f:formContainers>
+                                    <f:FormContainer title="">
+                                        <f:formElements>
+                                            <f:FormElement label="Reconciliation Account ">
+                                                <f:fields>
+                                                    <!-- <Input value="{finModel>/ReconAcc}" showSuggestion="true" showValueHelp="false" valueHelpRequest=".onValueHelpRequest" suggestionItems="{/ProductCollection}" suggestionItemSelected=".onSuggestionItemSelected">
+                                                        <suggestionItems>
+                                                            <core:ListItem key="{ProductId}" text="{Name}" additionalText="{ProductId}" />
+                                                        </suggestionItems>
+                                                    </Input> -->
+                                                    <!-- <Input value="{finModel>/ReconAcc}"/> -->
+                                                    <Input id="multiInput1" value="{finModel>/ReconAcc}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequestedRA" suggestionRows="{
+                                                    path: 'BAPIService>/ReconciliationAccVHSet',
+                                                    length: 10
+                                                }">
+                                                        <suggestionColumns>
+                                                            <Column>
+                                                                <Label text="GL Account"/>
+                                                            </Column>
+                                                            <Column>
+                                                                <Label text="Companay Code"/>
+                                                            </Column>
+                                                        </suggestionColumns>
+                                                        <suggestionRows>
+                                                            <ColumnListItem>
+                                                                <Label text="{BAPIService>GLAccount}" />
+                                                                <Label text="{BAPIService>ComapanyCode}" />
+                                                            </ColumnListItem>
+                                                        </suggestionRows>
+                                                    </Input>
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Payment Reason ">
+                                                <f:fields>
+                                                    <Input value="{finModel>/PaymentReason}"/>
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Customer ">
+                                                <f:fields>
+                                                    <Input id="multiInput" value="{finModel>/Customer}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" suggestionRows="{
+                                                    path: 'BAPIService>/CustomerVHSet',
+                                                    length: 10
+                                                }">
+                                                        <suggestionColumns>
+                                                            <Column>
+                                                                <Label text="Customer Code"/>
+                                                            </Column>
+                                                            <Column>
+                                                                <Label text="Customer Name"/>
+                                                            </Column>
+                                                        </suggestionColumns>
+                                                        <suggestionRows>
+                                                            <ColumnListItem>
+                                                                <Label text="{BAPIService>KUNNR}" />
+                                                                <Label text="{BAPIService>Name1}{BAPIService>Name2}" />
+                                                            </ColumnListItem>
+                                                        </suggestionRows>
+                                                    </Input>
+                                                    <!-- <Input value="{finModel>/Customer}"/> -->
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Clearing With Customer ">
+                                                <f:fields>
+                                                    <Input value="{finModel>/ClearingWcust}"/>
+                                                </f:fields>
+                                            </f:FormElement>
+
+
+                                        </f:formElements>
+                                    </f:FormContainer>
+
+
+                                </f:formContainers>
+                            </f:Form>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection titleUppercase="false" title="Comments">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection titleUppercase="false">
+                        <uxap:blocks>
+                            <l:VerticalLayout class="sapUiContentPadding" width="100%">
+                                <l:content>
+                                    <TextArea value="{commentsModel>/comments}" maxLength="40" placeholder="Enter your comments" width="100%"/>
+                                    <FeedContent contentText="{vendorService>requestorcomment}" subheader="{TaskDetails>/createdBy}">
+                                    </FeedContent>
+                                    <FeedContent visible="{= ${vendorService>approver1comment} === '' ? false : true }" contentText="{vendorService>approver1comment}" subheader="by L1 Approver">
+                                    </FeedContent>
+                                    <FeedContent visible="{= ${vendorService>approver2comment} === '' ? false : true }" contentText="{vendorService>approver2comment}" subheader="by L2 Approver">
+                                    </FeedContent>
+
+                                    <!-- <List showSeparators="Inner" items="{/EntryCollection}">
+                                        <FeedListItem sender="{Author}" info="{Type}" timestamp="{Date}" text="{Text}" convertLinksToAnchorTags="All"/>
+                                    </List> -->
+
+                                </l:content>
+                            </l:VerticalLayout>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+
+
+        </uxap:sections>
+
+        <uxap:footer>
+            <OverflowToolbar>
+
+                <ToolbarSpacer/>
+                <Button type="Accept" text="Approve" press="onAccept"/>
+                <Button type="Reject" text="Reject" press="onReject"/>
+            </OverflowToolbar>
+        </uxap:footer>
+
+    </uxap:ObjectPageLayout>
+</mvc:View>

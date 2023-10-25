@@ -1,0 +1,18 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m" controllerName="com.ncs.btp.buildinbox.controller.RemoteView" displayBlock="true">
+
+	<Page id="page" title="Detail Page" floatingFooter="true">
+	<content>
+	</content>
+		
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button type="Accept" text="Accept"/>
+				<Button type="Reject" text="Reject"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+
+</mvc:View>

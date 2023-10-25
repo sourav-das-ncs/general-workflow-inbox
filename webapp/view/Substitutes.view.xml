@@ -1,0 +1,65 @@
+<mvc:View
+    controllerName="com.ncs.btp.buildinbox.controller.Substitutes"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc">
+
+   <Page id="SUBST_PAGE_ID" title="Manage My Substitutes" showNavButton="false" navButtonPress="onPressBackToInbox" class="sapUiResponsiveContentPadding">
+			<content>
+				<Table id="idSubTable" items="{path: '/SubstitutionRuleCollection'}" mode="SingleSelectMaster" selectionChange="handleRuleSelection">
+					<headerToolbar>
+						<OverflowToolbar>
+                            <ToolbarSpacer/>
+							<Button type="Emphasized" icon="sap-icon://add-employee" text="Add" press="onPressAddSubstn"/>
+							<Button icon="sap-icon://delete" visible="true" text="Delete"
+								press="onPressDeleteSubstn"/>
+						</OverflowToolbar>
+					</headerToolbar>
+					<columns>
+						<Column mergeDuplicates="false" mergeFunctionName="data#UserName">
+							<header>
+								<Text text="Substitutes"/>
+							</header>
+						</Column>
+						<Column visible="true" minScreenWidth="Tablet" demandPopin="true">
+							<header>
+								<Text visible="true" text="Substitution Period"/>
+							</header>
+						</Column>
+						<Column>
+							<header>
+								<Text text="Process"/>
+							</header>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true">
+							<header>
+								<Text text="Start Date"/>
+							</header>
+						</Column>
+						<Column visible="true" minScreenWidth="Tablet" demandPopin="true">
+							<header>
+								<Text visible="true" text="End Date"/>
+							</header>
+						</Column>
+						<Column visible="true" minScreenWidth="Tablet" demandPopin="true">
+							<header>
+								<Text visible="true" text="Status"/>
+							</header>
+						</Column>
+					</columns>
+                    <items>
+					<ColumnListItem>
+						<ObjectIdentifier title="{FullName}" text="{User}" titleActive="false" titlePress="onEmployeeProfileLaunch"/>
+						<Text text="{path:'BeginDate', type:'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}} to {path:'EndDate', type:'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}"/>
+						<!-- DELETE HARDCODING -->
+                        <Text text="poprocess"/>
+						<Text text="{path:'BeginDate', type:'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}"/>
+						<Text text="{path:'EndDate', type:'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}"/>
+                        <ObjectStatus text="{=${IsEnabled}? 'Active' : 'Inactive'}" state="{=${IsEnabled}? 'Success' : 'Error'}"/>
+					</ColumnListItem>
+                    </items>
+				</Table>
+			</content>
+		</Page>
+	
+
+</mvc:View>

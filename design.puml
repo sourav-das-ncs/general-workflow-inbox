@@ -1,0 +1,158 @@
+@startuml
+start
+
+:Job Scheduler;
+
+partition JobScheduler {
+    :Call S4 poStatusSet;
+
+    if (BtpStatus == CANCEL) then (yes)
+        :Get WF Instance Id;
+        :Call Work Flow cancel api;
+    else (no)
+        if (DropShip?) then (yes)
+            :Call SO Auth Matrix;
+            :Caluate L3 Role;
+        endif
+
+        if(L1 already approved) then (yes)
+            : update L1_APPR_REQ = false;
+            floating note left: if PR link is done after L1 Approval
+        endif
+
+        if(L2 already approved) then (yes)
+            : update L2_APPR_REQ = false;
+            floating note left: if PR link is done after L2 Approval
+        endif
+
+        :Send all data to Work Flow create api;
+
+        ' @json
+        '  {
+        '     "PORequestNumber": "P230000007",
+        '     "PONumber": "5190000016",
+        '     "DocType": "Z8NB",
+        '     "PurGrp": "SGJ",
+        '     "DropShip": "YES",
+        '     "POValue": 360000,
+        '     "L1_APPR_REQ":"true/false",
+        '     "L2_APPR_REQ":"true/false",
+        '     "L3_Role":"true/false"
+        ' }
+        ' @endjson
+    endif
+
+}
+
+partition Work Flow {
+
+    :Get PoType From DocType;
+
+    if (PoType?) then (Trading)
+
+        :Get L1 & L2 Approver Role;
+
+        if (L1_APPR_REQ?) then (yes)
+
+            :Wait For L1 Approver;
+
+            partition InboxApp L1 Approver {
+                if (L1 has Approved) then (yes)
+                    :Update L1 Approver Response To S4;
+                    if (User has L2 role) then (yes)
+                        : Update L2_APPR_REQ = false;
+                    endif
+                    if(DropShip == Yes & User has L3 role) then (yes)
+                        : Update L3_APPR_REQ = false;
+                    endif
+                    : Send L2_APPR_REQ & L2_APPR_REQ & L1_Approved to Workflow ;
+                    if(L2_APPR_REQ == L3_APPR_REQ == false) then (yes)
+                        : Call Release Po Api;
+                    endif
+                else (No)
+                    : Send  L1_Rejected To Workflow ;
+                endif
+            }
+
+        else (No)
+        endif
+
+        if (L1 has rejected?) then (yes)
+            end
+        endif
+
+        if (L2_APPR_REQ?) then (yes)
+            :Wait For L2 Approver;
+            partition InboxApp L2 Approver {
+                if (L2 has Approved) then (yes)
+                    :Update L2 Approver Response To S4/HANA;
+                    if(DropShip == Yes & User has L3 role) then (yes)
+                        : Update L3_APPR_REQ = false;
+                    endif
+                    : Send L3_APPR_REQ & L2_Approved to Workflow ;
+                    if(L3_APPR_REQ == false) then (yes)
+                        : Call Release Po Api;
+                    endif
+                else (No)
+                    : Send L2_Rejected To Workflow ;
+                endif
+            }
+        else (No)
+        endif
+
+        if (L2 has rejected?) then (yes)
+            end
+        endif
+
+        if (L3_APPR_REQ?) then (yes)
+            :Wait For L3 Approver;
+            partition InboxApp L3 Approver {
+                if (L3 has Approved) then (yes)
+                    :Update L3 Approver Response To S4/HANA;
+                    : Send L3_APPR_REQ & L2_Approved to Workflow ;
+                    : Call Release Po Api;
+                else (No)
+                    : Send L3_Rejected To Workflow ;
+                endif
+            }
+        else (No)
+        endif
+
+        if (L3 has rejected?) then (yes)
+            end
+        endif
+
+
+
+    else (Non Trading)
+
+        if (Is DocType BU or SU ?) then (BU)
+            :Get L1, L2 & L3 Approver Role;
+
+            :L1 Approval Required;
+            :L2 Approval Required (skip if L1 == L2);
+            :L3 Approval Required (skip if L1 == L3 or L2 == L3);
+
+        else (SU)
+
+            :Get L1, L2 & L3 Approver Role;
+            if (Is PO Value <= 3000?) then (yes)
+                :L1 Approval Required ;
+                :L3 Approval Required (skip if L1 == L3);
+            else (No)
+                :L1 Approval Required;
+                :L2 Approval Required (skip if L1 == L2);
+                :L3 Approval Required (skip if L1 == L3 or L2 == L3);
+            endif
+
+
+        endif
+    endif
+
+    : Complete Workflow;
+
+}
+
+
+end
+@enduml

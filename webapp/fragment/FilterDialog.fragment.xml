@@ -1,0 +1,64 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ViewSettingsDialog
+		confirm="handleFilterDialogConfirm">
+		<filterItems>
+			<ViewSettingsFilterItem
+				text="Priority"
+				key="Priority"
+				multiSelect="false">
+				<items>
+					
+					<ViewSettingsItem text="Very High" key="Priority___EQ___VERY_HIGH___" />
+					<ViewSettingsItem text="High" key="Priority___EQ___HIGH___" />
+					<ViewSettingsItem text="Medium" key="Priority___EQ___MEDIUM___" />
+                    <ViewSettingsItem text="Low" key="Priority___EQ___LOW___" />
+				</items>
+			</ViewSettingsFilterItem>
+			<ViewSettingsFilterItem
+				text="Due On"
+				key="CompletionDeadLine"
+				multiSelect="false">
+				<items>
+					<ViewSettingsItem text="Overdue" key="Overdue" />
+					<ViewSettingsItem text="Within a Week" key="Week" />
+					<ViewSettingsItem text="Within a Month" key="Month" />
+                    <ViewSettingsItem text="All" key="" />
+				</items>
+			</ViewSettingsFilterItem>
+            <ViewSettingsFilterItem
+				text="Status"
+				key="Status"
+				multiSelect="true">
+				<items>
+					<ViewSettingsItem text="Ready" key="Status___EQ___READY___" />
+                    <ViewSettingsItem text="In Progress" key="Status___EQ___IN_PROGRESS___" />
+                    <ViewSettingsItem text="Executed" key="Status___EQ___EXECUTED___" />
+                    <ViewSettingsItem text="Reserved" key="Status___EQ___RESERVED___" />                   
+				</items>
+			</ViewSettingsFilterItem>
+            <ViewSettingsFilterItem
+				text="Created On"
+				key="CreatedOn"
+				multiSelect="false">
+				<items>
+					<ViewSettingsItem text="Today" key="Today" />
+					<ViewSettingsItem text="Past 7 Days" key="WEEK" />
+                    <ViewSettingsItem text="Past 30 Days" key="MONTH" />
+                    <ViewSettingsItem text="All" key="" />
+				</items>
+			</ViewSettingsFilterItem>
+            <ViewSettingsFilterItem
+				text="Task Type"
+				key="TaskDefinitionID"
+				multiSelect="true">
+				<items>
+					<ViewSettingsItem text="A1 Approver" key="Price___BT___100___1000" />
+					<ViewSettingsItem text="A2 Approver" key="Price___GT___1000___X" />
+                    <ViewSettingsItem text="Manager Reveiw" key="Price___GT___1000___X" />
+				</items>
+			</ViewSettingsFilterItem>
+		</filterItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>

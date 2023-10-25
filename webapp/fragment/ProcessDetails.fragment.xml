@@ -1,0 +1,126 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:cmmns="sap.ui.commons" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form"
+	xmlns:u="sap.ui.unified">
+	<Dialog class="sapUiSizeCompact" contentWidth="65em">
+		<content>
+			<!-- <Table inset="false" items="{ path: 'WFTaskInstances>/' }">
+				<columns>
+					<Column>
+						<Text text="Task Description"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="Task Status"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="Created Date"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="Completed Date"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="Completed By"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="Action Type"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="Completion Source"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{WFTaskInstances>}"/>
+							<Text text="{WFTaskInstances>}"/>
+							<Text text="{WFTaskInstances>}"/>
+							<Text text="{WFTaskInstances>}"/>
+							<Text text="{WFTaskInstances>}"/>
+							<Text text="{WFTaskInstances>}"/>
+							<Text text="{WFTaskInstances>}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table> -->
+
+            <Table id="idProductsTable" inset="false" items="{WFTaskInstances>/}">
+                    <headerToolbar>
+                        <OverflowToolbar>
+                            <content>
+                                <Title text="Task List" level="H2"/>
+                                <ToolbarSpacer />
+                            </content>
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column width="15em">
+                            <Text text="Task Name" />
+                        </Column>
+
+                        <Column>
+                            <Text text="Started By" />
+                        </Column>
+                        <Column minScreenWidth="Desktop" demandPopin="true">
+                            <Text text="Started On" />
+                        </Column>
+
+                        <Column >
+                            <Text text="Actual Completion" />
+                        </Column>
+                        <Column >
+                            <Text text="Action Type" />
+                        </Column>
+                        <Column >
+                            <Text text="Priority" />
+                        </Column>
+                        <Column >
+                            <Text text="Status" />
+                        </Column>
+
+                    </columns>
+                    <items>
+                        <ColumnListItem vAlign="Middle">
+                            <cells>
+
+                                <!-- <ObjectIdentifier title="AC Filters" text="D1200"/>
+                                                <Text text="AC filters" /> -->
+                                <ObjectIdentifier title="{WFTaskInstances>subject}" text="{WFTaskInstances>activityId}"/>
+
+
+                                <Text text="{WFTaskInstances>processor}" />
+                                <Text text="{ 
+                                    path: 'WFTaskInstances>createdAt', 
+                                    type: 'sap.ui.model.type.Date',
+                                    formatOptions: {
+                                        source: {
+                                            pattern: 'yyyy-MM-ddTHH:mm:ssZ'
+                                        },
+                                        pattern: 'MMM dd,yyyy HH:mm:ss'
+                                    }
+                                }" />
+                                <Text text="{ 
+                                    path: 'WFTaskInstances>completedAt', 
+                                    type: 'sap.ui.model.type.Date',
+                                    formatOptions: {
+                                        source: {
+                                            pattern: 'yyyy-MM-ddTHH:mm:ssZ'
+                                        },
+                                        pattern: 'MMM dd,yyyy HH:mm:ss'
+                                    }
+                                }" />
+                                <!-- <Text text="{= ${WFTaskInstances>status} !== 'COMPLETED' ? 'APPROVED' : '' }" /> -->
+                                <ObjectStatus text="{= ${WFTaskInstances>status} === 'COMPLETED' ? 'APPROVED' : '' }" 
+                                    icon="{= ${WFTaskInstances>status} === 'COMPLETED' ? 'sap-icon://sys-enter-2' : '' }" state="{= ${WFTaskInstances>status} === 'COMPLETED' ? 'Success' : 'None' }" />
+                                <ObjectStatus text="{WFTaskInstances>priority}" state="{= ${WFTaskInstances>priority} === 'HIGH' ? 'Indication03' : 'Indication05' }" />
+                                <!-- <Text text="{WFTaskInstances>status}" /> -->
+                                <ObjectStatus text="{WFTaskInstances>status}" inverted="true" state="{= ${WFTaskInstances>status} === 'COMPLETED' ? 'Success' : 'Information' }" />
+
+                            </cells>
+                        </ColumnListItem>
+
+                    </items>
+                </Table>
+		</content>
+		<buttons>
+			<Button text="Close" press="closeProcessDetailsDialog"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>
