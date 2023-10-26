@@ -572,6 +572,32 @@ sap.ui.define([
             this.setModel(oDefModel, "TaskDetails");
 
             // return oDefModel.getData();
+        },
+
+        onDownloadPress: function (oEvent) {
+
+            function downloadFile(url, fileName) {
+                // Create a temporary anchor element
+                const link = document.createElement('a');
+                link.href = url;
+
+                // Set the download attribute with the desired file name
+                link.download = fileName;
+
+                // Simulate a click on the anchor to trigger the download
+                link.click();
+
+                // Clean up: remove the anchor element
+                document.body.removeChild(link);
+            }
+
+            let sPath = this.getModulePath() + `/docapprsrv/service/general`;
+            const desiredFileName = 'my-downloaded-file.pdf';
+
+            downloadFile(fileUrl, desiredFileName);
+
+
+
         }
 
 
