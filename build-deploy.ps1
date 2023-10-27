@@ -1,4 +1,4 @@
 
-mbt build -p=CF
+npm run build:mta
 
 npm run deploy

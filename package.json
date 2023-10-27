@@ -41,5 +41,8 @@
             "mbt"
         ]
     },
-    "sapuxLayer": "CUSTOMER_BASE"
+    "sapuxLayer": "CUSTOMER_BASE",
+    "dependencies": {
+        "rimraf": "^5.0.5"
+    }
 }

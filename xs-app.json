@@ -5,8 +5,7 @@
         {
             "source": "^/bpmworkflowruntime/(.*)$",
             "target": "/$1",
-            "service": "com.sap.spa.processautomation",
-            "endpoint": "api",
+            "destination": "spadestination",
             "authenticationType": "xsuaa"
         },
         {

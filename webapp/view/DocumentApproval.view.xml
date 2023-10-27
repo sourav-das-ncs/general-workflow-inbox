@@ -275,11 +275,11 @@
                                         width="100%"
                                     />
 
-                                    <FeedContent
+                                    <!-- <FeedContent
                                         visible="{= ${documentService>L1comments} === '' ? false : true }"
                                         contentText="{documentService>L1comments}"
                                         subheader="by L1 Approver"
-                                    />
+                                    /> -->
 
                                     <!-- <FeedContent 
                                         visible="{= ${poService>L2comments} === '' ? false : true }" 

@@ -98,7 +98,7 @@ sap.ui.define([
             this.getTaskDetails(this.taskID.split(",")[1].split("'")[1]);
             this.getTaskInstanceContext(this.taskID.split(",")[1].split("'")[1]);
             // this.getTaskCollectionDetails(sObjectId);
-            this._setViewSettings();
+            // this._setViewSettings();
             this._setModels();
 
         },
@@ -128,9 +128,6 @@ sap.ui.define([
                 comments: ""
             });
             this.setModel(oCommentsModel, "commentsModel");
-
-
-
         },
 
         _setViewSettings: function () {
@@ -186,263 +183,129 @@ sap.ui.define([
                 oResourceBundle.getText("shareSendEmailObjectMessage", [sObjectName, sObjectId, location.href]));
         },
 
-        getLoggedinUserRoles: function () {
-            let oModel = this.getOwnerComponent().getModel("role");
-            let oBContext = oModel.bindContext("/getRoleCollections(...)");
-
-            let oUserRoles = this.getView().getModel("UserRoles");
-
-            oBContext.execute().then(
-                function () {
-                    var oResults = oBContext.getBoundContext().getObject();
-                    oUserRoles.setData(JSON.parse(oResults.value));
-                    oUserRoles.checkUpdate(true);
-                    console.log(oResults);
-                },
-                function (oError) {
-                    MessageBox.alert(oError.message, {
-                        icon: MessageBox.Icon.ERROR,
-                        title: "Error"
-                    });
-                });
-        },
-
-        getPORoles: function () {
-            let oUserRoles = this.getView().getModel("UserRoles").getData();
-
-            const ROLE_PATTERN = new RegExp("^ZSG_MM_PO_L[123]_APPR\.(.*)$");
-            let poRoles = "";
-            for (let oRole of oUserRoles) {
-                if (ROLE_PATTERN.test(oRole)) {
-                    poRoles += oRole + ",";
-                }
-            }
-
-            return poRoles;
-        },
-
-        updateRolesToWF: function () {
-            let oTaskData = this.getModel("TaskCollectionData").getData();
-            let poRoles = this.getPORoles();
-
-            let sWorkflowInsId = this.getModel("TaskDetails").getData().workflowInstanceId;
-            const WF_ID = sWorkflowInsId;
-
-            var sPath = this.getModulePath() + `/bpmworkflowruntime/public/workflow/rest/v1/workflow-instances/${WF_ID}/context`;
-
-            if (oTaskData.LEVEL === "L1") {
-                let payload = {
-                    "startEvent": {
-                        "input": {
-                            "L1_UserRoles": poRoles,
-                        }
-                    }
-                }
-                return this.completeTask(sPath, payload);
-            }
-            if (oTaskData.LEVEL === "L2") {
-                let payload = {
-                    "startEvent": {
-                        "input": {
-                            "L2_UserRoles": poRoles,
-                        }
-                    }
-                }
-                return this.completeTask(sPath, payload);
-            }
-            // if (oTaskData.LEVEL === "L3") {
-
-            // }
-            return Promise.resolve(true);
-        },
-
-        onAccept: function (oEvent) {
+        onAccept: async function (oEvent) {
             // this.updateService('A');
+            var orderBusyDialog = new sap.m.BusyDialog();
+            orderBusyDialog.open();
 
+            try {
 
-
-            this.updateService('A').then(function (data) {
-                var orderBusyDialog = new sap.m.BusyDialog();
-                orderBusyDialog.open();
+                await this.updateService('A');
 
                 var sPath = this.getModulePath() + "/bpmworkflowruntime/public/workflow/rest/v1/task-instances/" + this.taskID.split(",")[1].split("'")[1];
                 var oPayload = {
                     "status": "COMPLETED",
                     "decision": "approve"
                 };
-                var that = this;
-                let oFuncSuccess = function (oResp) {
-                    orderBusyDialog.close();
-                    // let isFinalAppprover = this.getModel("objectView").getData().isFinalApprover;
-                    let sMessage = "Request approved";
 
 
-                    sap.m.MessageBox.success(sMessage, {
-                        actions: [sap.m.MessageBox.Action.OK],
-                        emphasizedAction: sap.m.MessageBox.Action.OK,
-                        onClose: function (sAction) {
-                            that.navToMainPage();
-                        }
-                    });
+                await this.completeTask(sPath, oPayload);
+
+                let sMessage = "Request approved";
+
+                const that = this;
 
 
-                }.bind(this);
+                sap.m.MessageBox.success(sMessage, {
+                    actions: [sap.m.MessageBox.Action.OK],
+                    emphasizedAction: sap.m.MessageBox.Action.OK,
+                    onClose: function (sAction) {
+                        that.navToMainPage();
+                    }
+                });
 
-                let oFuncError = function (data) {
-                    orderBusyDialog.close();
-                    sap.m.MessageBox.error("Error occurred! \n" + data);
-                };
-
-                ;
-                this.updateRolesToWF().then(function (data) {
-
-                    this.completeTask(sPath, oPayload).then(oFuncSuccess, oFuncError);
-
-                }.bind(this)).catch(oFuncError);
-
-
-            }.bind(this));
-
+            }
+            catch (e) {
+                sap.m.MessageBox.error("Error occurred! \n" + e);
+            } finally {
+                orderBusyDialog.close();
+            }
 
         },
 
-        updateService: function (status) {
-            let oBAPIModel = this.getModel("poService");
-            let oTaskContext = this.getModel("TaskContextData").getData().startEvent.input;
+        updateService: async function (status) {
+            let oDocumentModel = this.getModel("documentService").getData();
+            let oTaskContext = this.getModel("TaskContextData").getData().startEvent;
             let oComments = this.getModel("commentsModel").getData();
-            let oTaskData = this.getModel("TaskCollectionData").getData();
+            // let oTaskData = this.getModel("TaskCollectionData").getData();
             debugger;
             // let isFinalAppprover = this.getModel("objectView").getData().isFinalApprover;
-            let oPayload = {};
-            // if(isFinalAppprover){
-            //     //update finance data
-            //     oPayload = this.getModel("finModel").getData();
-            // }
+            let oPayload = {
+                STATUS: status === 'A' ? "APPROVED" : "REJECTED",
+                L1APPR_COMMENTS: oComments.comments
+            };
 
-            // oPayload.ParentId = oTaskContext.Id;
-            // // oPayload.IsFinalApprover =  isFinalAppprover;
-            // oPayload.ApprovalRemark = oComments.comments;
-            // oPayload.HeaderStat = status;
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
 
-            return new Promise(function (resolve, reject) {
+            var requestOptions = {
+                method: 'PATCH',
+                headers: myHeaders,
+                body: JSON.stringify(oPayload),
+                redirect: 'follow'
+            };
 
-
-                // oBAPIModel.callFunction("/UpdateToApproval", {    // function import name
-                //     method: "POST",                             // http method
-                //     urlParameters:  {"Zreqn" : oTaskContext.RequestId,
-                //     "Action":status,
-                //     "Comments":oComments.comments  }, // function import parameters        
-                //     success: function(oData, response) { resolve(oData);},      // callback function for success
-                //     error: function(oError){ reject("error");}                  // callback function for error
-                // });
-
-                //fill approver level based task data
+            var appId = 'com.ncs.btp.buildinbox';
+            var appPath = appId.replaceAll(".", "/");
+            var appModulePath = jQuery.sap.getModulePath(appPath);
 
 
-                //get the final approver from task description
-                let poRoles = this.getPORoles();
-
-                var oUpdatePayload = {
-                    Wfapprlevel: oTaskData.LEVEL,
-                    Wfapprstatus: status === 'A' ? "APPR" : "REJ"
-                };
-                if (oTaskData.LEVEL === "L1") {
-                    oUpdatePayload.L1approverDate = new Date();
-                    oUpdatePayload.L1approverTime = this.getCurrentTimeInDurationFormat();
-                    oUpdatePayload.L1comments = oComments.comments;
-                    // oUpdatePayload.L1roles = poRoles;
-                }
-                if (oTaskData.LEVEL === "L2") {
-                    oUpdatePayload.L2approverDate = new Date();
-                    oUpdatePayload.L2approverTime = this.getCurrentTimeInDurationFormat();
-                    oUpdatePayload.L2comments = oComments.comments;
-                    // oUpdatePayload.L2roles = poRoles;
-                }
-                if (oTaskData.LEVEL === "L3") {
-                    oUpdatePayload.L3approverDate = new Date();
-                    oUpdatePayload.L3approverTime = this.getCurrentTimeInDurationFormat();
-                    oUpdatePayload.L3comments = oComments.comments;
-                    // oUpdatePayload.L3roles = poRoles;
-                }
-
-                const path = oBAPIModel.createKey("/POwfstatusSet", {
-                    "PoReqno": oTaskContext.PORequestNumber, // with the value 999 for example
-                    "PoNumber": oTaskContext.PONumber,
-                    "DocType": oTaskContext.DocType,
-                    "PruchGroup": oTaskContext.PurGrp
-
-                });
+            const res = await fetch(`${appModulePath}/docapprsrv/service/general/DOCUMENT_TABLE(ID=${oDocumentModel.ID})`, requestOptions);
+            console.log(await res.text());
 
 
-
-
-                oBAPIModel.update(path, oUpdatePayload, {
-                    success: function (oData, response) {
-
-                        // if (status === 'R' || isFinalApprover) {
-                        //     oBAPIModel.callFunction("/PoRelease", {    // function import name
-                        //         method: "POST",                             // http method
-                        //         urlParameters: {
-                        //             "PoNum": oTaskContext.PONumber,
-                        //             "Action": status === 'A' ? "APPR" : "REJ",
-                        //             "PoReqno": oTaskContext.PORequestNumber
-                        //         }, // function import parameters        
-                        //         success: function (oData, response) { resolve(oData); },      // callback function for success
-                        //         error: function (oError) { reject("error"); }                  // callback function for error
-                        //     });
-                        // } else {
-                        //     resolve(oData);
-                        // }
-
-
-                        resolve(oData);
-                    },      // callback function for success
-                    error: function (oError) { reject("error"); }
-                });
-
-
-
-            }.bind(this));
-            //return promise
+            return oDocumentModel;
         },
 
-        onReject: function () {
-            var orderBusyDialog = new sap.m.BusyDialog();
-            orderBusyDialog.open();
+        onReject: async function () {
+
+            let oComments = this.getModel("commentsModel").getData();
+            if (oComments.comments === '') {
+                sap.m.MessageBox.error("Please provide a comment for rejection.");
+                return "";
+            }
+
             var sPath = this.getModulePath() + "/bpmworkflowruntime/public/workflow/rest/v1/task-instances/" + this.taskID.split(",")[1].split("'")[1];
             var oPayload = { "status": "COMPLETED", "decision": "reject" };
             var that = this;
 
+            const result = await this.onRejectConfirm();
 
-            this.onRejectConfirm().then(function (data) {
-                let oFuncSuccess = function (data) {
-                    orderBusyDialog.close();
-                    let sMessage = "Request Rejected";
+            if (!result) {
+                return;
+            }
 
+            var orderBusyDialog = new sap.m.BusyDialog();
+            orderBusyDialog.open();
 
-                    sap.m.MessageBox.success(sMessage, {
-                        actions: [sap.m.MessageBox.Action.OK],
-                        emphasizedAction: sap.m.MessageBox.Action.OK,
-                        onClose: function (sAction) {
-                            that.navToMainPage();
-                        }
-                    });
+            try {
+                await this.updateService('R');
 
-                }.bind(this);
+                await this.completeTask(sPath, oPayload);
 
-                let oFuncError = function (data) {
-                    orderBusyDialog.close();
-                    sap.m.MessageBox.error("Error occurred! \n" + data);
-                };
-                this.completeTask(sPath, oPayload).then(oFuncSuccess, oFuncError);
-            }.bind(this));
+                let sMessage = "Request Rejected";
+
+                sap.m.MessageBox.success(sMessage, {
+                    actions: [sap.m.MessageBox.Action.OK],
+                    emphasizedAction: sap.m.MessageBox.Action.OK,
+                    onClose: function (sAction) {
+                        that.navToMainPage();
+                    }
+                });
+
+            } catch (e) {
+                sap.m.MessageBox.error("Error occurred! \n" + data);
+                console.log(e);
+            } finally {
+                orderBusyDialog.close();
+            }
 
         },
 
         onRejectConfirm: function () {
 
             //check the comments present
-            let oComments = this.getModel("commentsModel").getData();
+
             return new Promise(function (resolve, reject) {
                 // if(oComments.comments === '' ){
                 //show dialog
@@ -450,34 +313,32 @@ sap.ui.define([
                     this.oRejectDialog = new Dialog({
                         title: "Reject",
                         type: sap.m.DialogType.Message,
+                        controller: this,
                         content: [
                             new Label({
                                 text: "Do you want to reject this task?",
                                 labelFor: "rejectionNote"
                             }),
-                            new TextArea("rejectionNote", {
-                                width: "100%",
-                                placeholder: "Provide your comments"
-                            })
+                            // new TextArea("rejectionNote", {
+                            //     width: "100%",
+                            //     placeholder: "Provide your comments",
+                            //     value: "{commentsModel>/comments}"
+                            // })
                         ],
                         beginButton: new Button({
                             type: sap.m.ButtonType.Emphasized,
                             text: "Reject",
                             press: function () {
                                 // let oUPromise = this.updateService('R');
-                                this.updateService('R').then(function (data) {
-                                    resolve("success");
-                                }.bind(this));
-
+                                resolve(true);
                                 this.oRejectDialog.close();
-
                             }.bind(this)
                         }),
                         endButton: new Button({
                             text: "Cancel",
                             press: function () {
+                                reject(false);
                                 this.oRejectDialog.close();
-                                reject("cancel");
                             }.bind(this)
                         })
                     });
@@ -493,6 +354,7 @@ sap.ui.define([
         navToMainPage: function () {
             this.getRouter().navTo("worklist", {});
         },
+
         getTaskInstanceContext: function (sTaskInstanceId) {
             let sWorkflowInsId = this.getModel("TaskDetails").getData().workflowInstanceId;
             //var sPath = this.getModulePath() + "/bpmworkflowruntime/public/workflow/rest/v1/task-instances/"+sTaskInstanceId+"/context"
@@ -528,7 +390,7 @@ sap.ui.define([
             //     debugger;
             // });
 
-            wfContext.docid = "5881e88d-c3e8-4e4f-96da-4c0ed3310cb0";
+            // wfContext.docid = "b3f51f17-2bd6-4a5a-8daa-88174954322b";
 
             let sPath = this.getModulePath() + `/docapprsrv/service/general/DOCUMENT_TABLE(ID=${wfContext.docid})`;
 
@@ -588,11 +450,13 @@ sap.ui.define([
                 link.click();
 
                 // Clean up: remove the anchor element
-                document.body.removeChild(link);
-            }
+                document.removeChild(link);
+            };
 
-            let sPath = this.getModulePath() + `/docapprsrv/service/general`;
-            const desiredFileName = 'my-downloaded-file.pdf';
+            const docItem = this.getModel("documentService").getData();
+
+            let fileUrl = this.getModulePath() + `/docapprsrv/service/general/readDocument()?id=${docItem.ID}`;
+            const desiredFileName = docItem.NAME;
 
             downloadFile(fileUrl, desiredFileName);
 
