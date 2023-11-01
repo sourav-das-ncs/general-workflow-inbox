@@ -7,7 +7,7 @@ partition JobScheduler {
     :Call S4 poStatusSet;
 
     if (BtpStatus == CANCEL) then (yes)
-        :Get WF Instance Id;
+        :Get WF Instance Idi;
         :Call Work Flow cancel api;
     else (no)
         if (DropShip?) then (yes)

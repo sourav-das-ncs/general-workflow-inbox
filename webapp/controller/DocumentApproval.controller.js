@@ -14,8 +14,8 @@ sap.ui.define([
     'sap/ui/table/Column',
     'sap/m/Column'
 ], function (BaseController, JSONModel, History, Dialog, Button, Label, Text, TextArea, formatter,
-    ColumnListItem, SearchField, Token,
-    UIColumn, MColumn) {
+             ColumnListItem, SearchField, Token,
+             UIColumn, MColumn) {
     "use strict";
 
     return BaseController.extend("com.ncs.btp.buildinbox.controller.DocumentApproval", {
@@ -128,6 +128,28 @@ sap.ui.define([
                 comments: ""
             });
             this.setModel(oCommentsModel, "commentsModel");
+            var oRequestDetails = {
+                "RequestId": "PO0001",
+                "Title": "PO Approval",
+                "Requester": {
+                    "Name": "Sourav",
+                    "UserId": "sourav.das@gmail.com",
+                    "Comment": "Please review and approve"
+                },
+                "BasicData": {
+                    "ponumber": "",
+                    "supplier": "Semi Corporation",
+                    "vendorcode": "100989",
+                    "netValue": 200000
+                },
+                "Receipent": {
+                    "cc": "100",
+                    "purchGroup": "GRP 001",
+                    "purchOrg": "100"
+                },
+                "approvalstep": "LocalManager",
+            };
+            this.getView().setModel(new sap.ui.model.json.JSONModel(oRequestDetails), "PO");
         },
 
         _setViewSettings: function () {
@@ -214,8 +236,7 @@ sap.ui.define([
                     }
                 });
 
-            }
-            catch (e) {
+            } catch (e) {
                 sap.m.MessageBox.error("Error occurred! \n" + e);
             } finally {
                 orderBusyDialog.close();
@@ -266,7 +287,7 @@ sap.ui.define([
             }
 
             var sPath = this.getModulePath() + "/bpmworkflowruntime/public/workflow/rest/v1/task-instances/" + this.taskID.split(",")[1].split("'")[1];
-            var oPayload = { "status": "COMPLETED", "decision": "reject" };
+            var oPayload = {"status": "COMPLETED", "decision": "reject"};
             var that = this;
 
             const result = await this.onRejectConfirm();
@@ -378,7 +399,6 @@ sap.ui.define([
             }.bind(this));
 
 
-
         },
 
         getRequestDetails: function (wfContext) {
@@ -421,7 +441,6 @@ sap.ui.define([
         },
 
 
-
         getTaskDetails: function (sTaskInstanceId) {
 
             let sPath = this.getModulePath() + "/bpmworkflowruntime/public/workflow/rest/v1/task-instances/" + sTaskInstanceId;
@@ -459,7 +478,6 @@ sap.ui.define([
             const desiredFileName = docItem.NAME;
 
             downloadFile(fileUrl, desiredFileName);
-
 
 
         }

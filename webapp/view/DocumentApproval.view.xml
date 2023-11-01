@@ -1,17 +1,17 @@
 <mvc:View
-    controllerName="com.ncs.btp.buildinbox.controller.DocumentApproval"
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns:uxap="sap.uxap"
-    xmlns="sap.m"
-    xmlns:l="sap.ui.layout"
-    xmlns:f="sap.ui.layout.form"
-    xmlns:core="sap.ui.core"
-    height="100%"
+        controllerName="com.ncs.btp.buildinbox.controller.DocumentApproval"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns:uxap="sap.uxap"
+        xmlns="sap.m"
+        xmlns:l="sap.ui.layout"
+        xmlns:f="sap.ui.layout.form"
+        xmlns:core="sap.ui.core"
+        height="100%"
 >
     <uxap:ObjectPageLayout
-        id="ObjectPageLayout"
-        upperCaseAnchorBar="false"
-        showFooter="true"
+            id="ObjectPageLayout"
+            upperCaseAnchorBar="false"
+            showFooter="true"
     >
         <uxap:headerTitle>
             <!-- <uxap:ObjectPageHeader objectTitle="Section sample">
@@ -19,34 +19,34 @@
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:expandedHeading>
                     <Title
-                        text="{TaskDetails>/subject}"
-                        wrapping="true"
+                            text="{TaskDetails>/subject}"
+                            wrapping="true"
                     />
                 </uxap:expandedHeading>
 
                 <uxap:snappedHeading>
                     <FlexBox
-                        fitContainer="true"
-                        alignItems="Center"
+                            fitContainer="true"
+                            alignItems="Center"
                     >
                         <!-- <Avatar src="sap-icon://picture" backgroundColor="Random" class="sapUiTinyMarginEnd"/> -->
                         <Title
-                            text="{TaskDetails>/subject}"
-                            wrapping="true"
+                                text="{TaskDetails>/subject}"
+                                wrapping="true"
                         />
                     </FlexBox>
                 </uxap:snappedHeading>
 
                 <uxap:expandedContent>
-                    <Text text="{TaskDetails>/subject}" />
+                    <Text text="{TaskDetails>/subject}"/>
                 </uxap:expandedContent>
 
                 <uxap:snappedContent>
-                    <Text text="{TaskDetails>/subject}" />
+                    <Text text="{TaskDetails>/subject}"/>
                 </uxap:snappedContent>
 
                 <uxap:snappedTitleOnMobile>
-                    <Title text="{TaskDetails>/subject}" />
+                    <Title text="{TaskDetails>/subject}"/>
                 </uxap:snappedTitleOnMobile>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -55,22 +55,22 @@
             <FlexBox wrap="Wrap">
                 <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
                     <ObjectStatus
-                        title="Requested By"
-                        text="{TaskDetails>/createdBy}"
+                            title="Requested By"
+                            text="{TaskDetails>/createdBy}"
                     />
                     <ObjectStatus
-                        title="Requested On"
-                        text="{ path: 'TaskDetails>/createdAt', type: 'sap.ui.model.odata.type.DateTimeOffset', formatOptions: { style: 'short' }}"
+                            title="Requested On"
+                            text="{ path: 'TaskDetails>/createdAt', type: 'sap.ui.model.odata.type.DateTimeOffset', formatOptions: { style: 'short' }}"
                     />
                 </l:VerticalLayout>
                 <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
                     <ObjectStatus
-                        title="Status"
-                        text="{TaskDetails>/status}"
+                            title="Status"
+                            text="{TaskDetails>/status}"
                     />
                     <ObjectStatus
-                        title="Priority"
-                        text="{TaskDetails>/priority}"
+                            title="Priority"
+                            text="{TaskDetails>/priority}"
                     />
                 </l:VerticalLayout>
             </FlexBox>
@@ -78,9 +78,10 @@
         </uxap:headerContent>
 
         <uxap:sections>
+
             <uxap:ObjectPageSection
-                titleUppercase="false"
-                title="Business Partner Details"
+                    titleUppercase="false"
+                    title="Basic Details"
             >
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection titleUppercase="false">
@@ -91,78 +92,154 @@
                                 </f:title>
                                 <f:layout>
                                     <f:ResponsiveGridLayout
-                                        labelSpanXL="4"
-                                        labelSpanL="4"
-                                        labelSpanM="4"
-                                        labelSpanS="12"
-                                        adjustLabelSpan="false"
-                                        emptySpanXL="0"
-                                        emptySpanL="0"
-                                        emptySpanM="0"
-                                        emptySpanS="0"
-                                        columnsXL="3"
-                                        columnsL="2"
-                                        columnsM="2"
-                                        singleContainerFullSize="false"
+                                            labelSpanXL="4"
+                                            labelSpanL="4"
+                                            labelSpanM="4"
+                                            labelSpanS="12"
+                                            adjustLabelSpan="false"
+                                            emptySpanXL="0"
+                                            emptySpanL="0"
+                                            emptySpanM="0"
+                                            emptySpanS="0"
+                                            columnsXL="3"
+                                            columnsL="2"
+                                            columnsM="2"
+                                            singleContainerFullSize="false"
                                     />
                                 </f:layout>
                                 <f:formContainers>
-                                    <f:FormContainer title="Basic Details">
+                                    <f:FormContainer title="PO Details">
+<!--                                        <core:Title text="PO Data"/>-->
+                                        <f:FormElement label="Vendor Name">
+                                            <f:fields>
+                                                <Text
+                                                        text="{PO>/BasicData/supplier}"
+                                                />
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Vendor Code">
+                                            <f:fields>
+                                                <Text
+                                                        text="{PO>/BasicData/vendorcode}"
+                                                />
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Created By">
+                                            <f:fields>
+                                                <Text
+                                                        text="{PO>/Requester/UserId}"
+                                                />
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Created By">
+                                            <f:fields>
+                                                <Text
+                                                        text="{PO>/Requester/UserId}"
+                                                />
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Company Code">
+                                            <f:fields>
+                                                <Text
+                                                        text="{PO>/Receipent/cc}"
+                                                />
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Purchasing Group">
+                                            <f:fields>
+                                                <Text
+                                                        text="{PO>/Receipent/purchGroup}"
+                                                />
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Purchasing Org">
+                                            <f:fields>
+                                                <Text
+                                                        text="{PO>/Receipent/purchOrg}"
+                                                />
+                                            </f:fields>
+                                        </f:FormElement>
+                                    </f:FormContainer>
+                                </f:formContainers>
+                            </f:Form>
+                            <f:Form editable="false">
+                                <f:title>
+                                    <!-- <core:Title text="Basic Details" /> -->
+                                </f:title>
+                                <f:layout>
+                                    <f:ResponsiveGridLayout
+                                            labelSpanXL="4"
+                                            labelSpanL="4"
+                                            labelSpanM="4"
+                                            labelSpanS="12"
+                                            adjustLabelSpan="false"
+                                            emptySpanXL="0"
+                                            emptySpanL="0"
+                                            emptySpanM="0"
+                                            emptySpanS="0"
+                                            columnsXL="3"
+                                            columnsL="2"
+                                            columnsM="2"
+                                            singleContainerFullSize="false"
+                                    />
+                                </f:layout>
+                                <f:formContainers>
+                                    <f:FormContainer title="Document Details">
                                         <f:formElements>
                                             <f:FormElement label="Document Id">
                                                 <f:fields>
                                                     <Text
-                                                        text="{documentService>/ID}"
+                                                            text="{documentService>/ID}"
                                                     />
                                                 </f:fields>
                                             </f:FormElement>
                                             <f:FormElement
-                                                label="Document Type "
+                                                    label="Document Type "
                                             >
                                                 <f:fields>
                                                     <Text
-                                                        text="{documentService>/DOC_TYPE}"
+                                                            text="{documentService>/DOC_TYPE}"
                                                     />
                                                 </f:fields>
                                             </f:FormElement>
                                             <f:FormElement
-                                                label="Document Name"
+                                                    label="Document Name"
                                             >
                                                 <f:fields>
                                                     <Text
-                                                        text="{documentService>/NAME}"
+                                                            text="{documentService>/NAME}"
                                                     />
                                                 </f:fields>
                                             </f:FormElement>
                                             <f:FormElement
-                                                label="Document Mime"
+                                                    label="Document Mime"
                                             >
                                                 <f:fields>
                                                     <Text
-                                                        text="{documentService>/MIME_TYPE}"
+                                                            text="{documentService>/MIME_TYPE}"
                                                     />
                                                 </f:fields>
                                             </f:FormElement>
                                             <f:FormElement
-                                                label="Document Status"
+                                                    label="Document Status"
                                             >
                                                 <f:fields>
                                                     <Text
-                                                        text="{documentService>/STATUS}"
+                                                            text="{documentService>/STATUS}"
                                                     />
                                                 </f:fields>
                                             </f:FormElement>
                                             <f:FormElement label="Created At">
                                                 <f:fields>
                                                     <Text
-                                                        text="{ path: 'documentService>/CREATED_AT', type: 'sap.ui.model.odata.type.DateTimeOffset', formatOptions: { style: 'long' }}"
+                                                            text="{ path: 'documentService>/CREATED_AT', type: 'sap.ui.model.odata.type.DateTimeOffset', formatOptions: { style: 'long' }}"
                                                     />
                                                 </f:fields>
                                             </f:FormElement>
                                             <f:FormElement label="Created By">
                                                 <f:fields>
                                                     <Text
-                                                        text="{documentService>/CREATED_BY}"
+                                                            text="{documentService>/CREATED_BY}"
                                                     />
                                                 </f:fields>
                                             </f:FormElement>
@@ -176,14 +253,14 @@
             </uxap:ObjectPageSection>
 
             <uxap:ObjectPageSection
-                titleUppercase="false"
-                title="Download Options"
+                    titleUppercase="false"
+                    title="Download Options"
             >
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection titleUppercase="false">
                         <uxap:blocks>
-                        <Button type="Emphasized" text="Download Document" press="onDownloadPress" />
-                        
+                            <Button type="Emphasized" text="Download Document" press="onDownloadPress"/>
+
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
@@ -257,22 +334,22 @@
             </uxap:ObjectPageSection> -->
 
             <uxap:ObjectPageSection
-                titleUppercase="false"
-                title="Comments"
+                    titleUppercase="false"
+                    title="Comments"
             >
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection titleUppercase="false">
                         <uxap:blocks>
                             <l:VerticalLayout
-                                class="sapUiContentPadding"
-                                width="100%"
+                                    class="sapUiContentPadding"
+                                    width="100%"
                             >
                                 <l:content>
                                     <TextArea
-                                        value="{commentsModel>/comments}"
-                                        maxLength="40"
-                                        placeholder="Enter your comments"
-                                        width="100%"
+                                            value="{commentsModel>/comments}"
+                                            maxLength="40"
+                                            placeholder="Enter your comments"
+                                            width="100%"
                                     />
 
                                     <!-- <FeedContent
@@ -306,16 +383,16 @@
 
         <uxap:footer>
             <OverflowToolbar>
-                <ToolbarSpacer />
+                <ToolbarSpacer/>
                 <Button
-                    type="Accept"
-                    text="Approve"
-                    press="onAccept"
+                        type="Accept"
+                        text="Approve"
+                        press="onAccept"
                 />
                 <Button
-                    type="Reject"
-                    text="Reject"
-                    press="onReject"
+                        type="Reject"
+                        text="Reject"
+                        press="onReject"
                 />
             </OverflowToolbar>
         </uxap:footer>
