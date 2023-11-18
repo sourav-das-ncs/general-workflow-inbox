@@ -48,6 +48,10 @@
                                                 }" >
                                         <core:Item key="{WFDefinitionList>id}" text="{WFDefinitionList>name}"/>
                                     </Select>
+<!--                                    <Input-->
+<!--                                            placeholder="Search"-->
+<!--                                            showValueHelp="true">-->
+<!--                                    </Input>-->
                                 </fb:control>
                             </fb:FilterItem>
                             <fb:FilterItem name="CreatedOn" label="Date Range">

@@ -1,0 +1,286 @@
+<mvc:View
+        controllerName="com.ncs.btp.buildinbox.controller.LeaveRequest"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns:uxap="sap.uxap"
+        xmlns="sap.m"
+        xmlns:l="sap.ui.layout"
+        xmlns:f="sap.ui.layout.form"
+        xmlns:core="sap.ui.core"
+        height="100%"
+>
+    <uxap:ObjectPageLayout
+            id="ObjectPageLayout"
+            upperCaseAnchorBar="false"
+            showFooter="true"
+    >
+        <uxap:headerTitle>
+            <!-- <uxap:ObjectPageHeader objectTitle="Section sample">
+			</uxap:ObjectPageHeader> -->
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <Title
+                            text="{TaskDetails>/subject}"
+                            wrapping="true"
+                    />
+                </uxap:expandedHeading>
+
+                <uxap:snappedHeading>
+                    <FlexBox
+                            fitContainer="true"
+                            alignItems="Center"
+                    >
+                        <!-- <Avatar src="sap-icon://picture" backgroundColor="Random" class="sapUiTinyMarginEnd"/> -->
+                        <Title
+                                text="{TaskDetails>/subject}"
+                                wrapping="true"
+                        />
+                    </FlexBox>
+                </uxap:snappedHeading>
+
+                <uxap:expandedContent>
+                    <Text text="{TaskDetails>/subject}"/>
+                </uxap:expandedContent>
+
+                <uxap:snappedContent>
+                    <Text text="{TaskDetails>/subject}"/>
+                </uxap:snappedContent>
+
+                <uxap:snappedTitleOnMobile>
+                    <Title text="{TaskDetails>/subject}"/>
+                </uxap:snappedTitleOnMobile>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:headerContent>
+            <FlexBox wrap="Wrap">
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <ObjectStatus
+                            title="Requested By"
+                            text="{TaskDetails>/createdBy}"
+                    />
+                    <ObjectStatus
+                            title="Requested On"
+                            text="{ path: 'TaskDetails>/createdAt', type: 'sap.ui.model.odata.type.DateTimeOffset', formatOptions: { style: 'short' }}"
+                    />
+                </l:VerticalLayout>
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <ObjectStatus
+                            title="Status"
+                            text="{TaskDetails>/status}"
+                    />
+                    <ObjectStatus
+                            title="Priority"
+                            text="{TaskDetails>/priority}"
+                    />
+                </l:VerticalLayout>
+            </FlexBox>
+            <!-- <ObjectAttribute title="" text="This example explains the rules for the rendering of sections"/> -->
+        </uxap:headerContent>
+
+        <uxap:sections>
+
+            <uxap:ObjectPageSection
+                    titleUppercase="false"
+                    title="Basic Details"
+            >
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection titleUppercase="false">
+                        <uxap:blocks>
+                            <f:Form editable="false">
+                                <f:title>
+                                    <!-- <core:Title text="Basic Details" /> -->
+                                </f:title>
+                                <f:layout>
+                                    <f:ResponsiveGridLayout
+                                            labelSpanXL="4"
+                                            labelSpanL="4"
+                                            labelSpanM="4"
+                                            labelSpanS="12"
+                                            adjustLabelSpan="false"
+                                            emptySpanXL="0"
+                                            emptySpanL="0"
+                                            emptySpanM="0"
+                                            emptySpanS="0"
+                                            columnsXL="3"
+                                            columnsL="2"
+                                            columnsM="2"
+                                            singleContainerFullSize="false"
+                                    />
+                                </f:layout>
+                                <f:formContainers>
+                                    <f:FormContainer title="Leave Details">
+<!--                                        <core:Title text="PO Data"/>-->
+                                        <f:FormElement label="Requester Name">
+                                            <f:fields>
+                                                <Text
+                                                        text="{LR>/BasicData/empname}"
+                                                />
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Leave Type">
+                                            <f:fields>
+                                                <Text
+                                                        text="{LR>/BasicData/leaveType}"
+                                                />
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Starts at">
+                                            <f:fields>
+                                                <Text
+                                                        text="{LR>/BasicData/fromdate}"
+                                                />
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Ends at">
+                                            <f:fields>
+                                                <Text
+                                                        text="{LR>/BasicData/todate}"
+                                                />
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Total days">
+                                            <f:fields>
+                                                <Text
+                                                        text="{LR>/BasicData/leavedays}"
+                                                />
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Reason">
+                                            <f:fields>
+                                                <Text
+                                                        text="{LR>/BasicData/reason}"
+                                                />
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Return Date">
+                                            <f:fields>
+                                                <Text
+                                                        text="{LR>/BasicData/return}"
+                                                />
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Covered By">
+                                            <f:fields>
+                                                <Text
+                                                        text="Adam"
+                                                />
+                                            </f:fields>
+                                        </f:FormElement>
+                                    </f:FormContainer>
+                                </f:formContainers>
+                            </f:Form>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection titleUppercase="false" title="Attached Documents">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection titleUppercase="false">
+                        <uxap:blocks>
+                            <Table inset="false" items="{LR>/attachedDocuments}">
+<!--                                <headerToolbar>-->
+<!--                                    <OverflowToolbar>-->
+<!--                                        <content>-->
+<!--                                            <Title text="Attached Documents" level="H2"/>-->
+<!--                                            <ToolbarSpacer />-->
+
+<!--                                        </content>-->
+<!--                                    </OverflowToolbar>-->
+<!--                                </headerToolbar>-->
+
+                                <columns>
+                                    <Column minScreenWidth="Tablet" demandPopin="true">
+                                        <Text text="Attachment Name"/>
+                                    </Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true">
+                                        <Text text="Type"/>
+                                    </Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true">
+                                        <Text text="Size"/>
+                                    </Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true">
+                                        <Text text="Action"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem vAlign="Middle">
+                                        <cells>
+                                            <Text text="{LR>name}" />
+                                            <Text text="{LR>type}" />
+                                            <Text text="{LR>size}" />
+                                            <Button text="Download"></Button>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection
+                    titleUppercase="false"
+                    title="Comments"
+            >
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection titleUppercase="false">
+                        <uxap:blocks>
+                            <l:VerticalLayout
+                                    class="sapUiContentPadding"
+                                    width="100%"
+                            >
+                                <l:content>
+                                    <TextArea
+                                            value="{commentsModel>/comments}"
+                                            maxLength="40"
+                                            placeholder="Enter your comments"
+                                            width="100%"
+                                    />
+
+                                    <!-- <FeedContent
+                                        visible="{= ${documentService>L1comments} === '' ? false : true }"
+                                        contentText="{documentService>L1comments}"
+                                        subheader="by L1 Approver"
+                                    /> -->
+
+                                    <!-- <FeedContent 
+                                        visible="{= ${poService>L2comments} === '' ? false : true }" 
+                                        contentText="{poService>L2comments}" 
+                                        subheader="by L2 Approver">
+                                    </FeedContent>
+
+                                    <FeedContent 
+                                        visible="{= ${poService>L3comments} === '' ? false : true }" 
+                                        contentText="{poService>L3comments}" 
+                                        subheader="by L3 Approver">
+                                    </FeedContent> -->
+
+                                    <!-- <List showSeparators="Inner" items="{/EntryCollection}">
+                                        <FeedListItem sender="{Author}" info="{Type}" timestamp="{Date}" text="{Text}" convertLinksToAnchorTags="All"/>
+                                    </List> -->
+                                </l:content>
+                            </l:VerticalLayout>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+
+        <uxap:footer>
+            <OverflowToolbar>
+                <ToolbarSpacer/>
+                <Button
+                        type="Accept"
+                        text="Approve"
+                        press="onAccept"
+                />
+                <Button
+                        type="Reject"
+                        text="Reject"
+                        press="onReject"
+                />
+            </OverflowToolbar>
+        </uxap:footer>
+    </uxap:ObjectPageLayout>
+</mvc:View>

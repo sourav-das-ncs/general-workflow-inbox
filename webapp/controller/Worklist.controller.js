@@ -54,13 +54,13 @@ sap.ui.define([
 
             this.oTaskType = this.getView().byId("slName");
 
-            var aUsers = [{ DisplayName: 'John', UniqueName: '70006111' },
-            { DisplayName: 'Rohan', UniqueName: '50006143' },
-            { DisplayName: 'Richard', UniqueName: '60006153' },
-            { DisplayName: 'Sam Hopkins', UniqueName: '60006154' },
-            { DisplayName: 'Samuel', UniqueName: '60006155' },
-            { DisplayName: 'Ramesh', UniqueName: '60006158' },
-            { DisplayName: 'Tom Benj', UniqueName: '60006159' }];
+            var aUsers = [{DisplayName: 'John', UniqueName: '70006111'},
+                {DisplayName: 'Rohan', UniqueName: '50006143'},
+                {DisplayName: 'Richard', UniqueName: '60006153'},
+                {DisplayName: 'Sam Hopkins', UniqueName: '60006154'},
+                {DisplayName: 'Samuel', UniqueName: '60006155'},
+                {DisplayName: 'Ramesh', UniqueName: '60006158'},
+                {DisplayName: 'Tom Benj', UniqueName: '60006159'}];
             //
             var oViewModel = new JSONModel(aUsers);
             this.setModel(oViewModel, "userModel");
@@ -145,7 +145,6 @@ sap.ui.define([
                 this.getModel("worklistView").setProperty("/mass", false);
             }
         },
-
 
 
         handleSortButtonPressed: function () {
@@ -288,7 +287,7 @@ sap.ui.define([
         submitTasks: function (aTaskIds, sDecision) {
             var aSuccessList = [];
             var aFailedList = [];
-            var oPayload = { "status": "COMPLETED", "decision": sDecision };
+            var oPayload = {"status": "COMPLETED", "decision": sDecision};
             return new Promise(function (resolve, reject) {
                 $.each(aTaskIds, function (i, sTaskId) {
                     var sPath = this.getModulePath() + "/bpmworkflowruntime/public/workflow/rest/v1/task-instances/" + sTaskId;
@@ -341,7 +340,7 @@ sap.ui.define([
             var orderBusyDialog = new sap.m.BusyDialog();
             orderBusyDialog.open();
             var sPath = this.getModulePath() + "/bpmworkflowruntime/public/workflow/rest/v1/task-instances/" + oEvent.getSource().getBindingContext().getObject().InstanceID;
-            var oPayload = { "status": "COMPLETED", "decision": "approve" };
+            var oPayload = {"status": "COMPLETED", "decision": "approve"};
 
             let oFuncSuccess = function (data) {
                 orderBusyDialog.close();
@@ -361,7 +360,7 @@ sap.ui.define([
             var orderBusyDialog = new sap.m.BusyDialog();
             orderBusyDialog.open();
             var sPath = this.getModulePath() + "/bpmworkflowruntime/public/workflow/rest/v1/task-instances/" + oEvent.getSource().getBindingContext().getObject().InstanceID;
-            var oPayload = { "status": "REWORK", "decision": "reject" };
+            var oPayload = {"status": "REWORK", "decision": "reject"};
 
             let oFuncSuccess = function (data) {
                 orderBusyDialog.close();
@@ -418,9 +417,7 @@ sap.ui.define([
                     visible: false
                 },
                 valueAxis: {
-                    label: {
-
-                    },
+                    label: {},
                     title: {
                         visible: false
                     }
@@ -551,7 +548,6 @@ sap.ui.define([
             let dEdate = this.oDRS2.getSecondDateValue();
 
 
-
             oTable.getBinding("items").filter(aFinalFilter);
         },
 
@@ -575,8 +571,10 @@ sap.ui.define([
                 sRoute = 'sales';
             } else if (sProcess === 'purchaseOrderProcess') {
                 sRoute = 'po';
-            } else if(sProcess === 'documentApprovalVerification') {
+            } else if (sProcess === 'documentApprovalVerification') {
                 sRoute = 'da';
+            } else if (sProcess === 'leaveApproval') {
+                sRoute = 'leaveRequest';
             }
 
 
@@ -587,8 +585,6 @@ sap.ui.define([
             // this.getRouter().navTo("vendor", {
             //     objectId: oItem.getBindingContext().getPath().substring("/TaskCollection".length)
             // });
-
-
 
 
             //component re-use navigation
@@ -610,11 +606,10 @@ sap.ui.define([
 
         navtovendor: function () {
             this.getRouter().navTo("detail", {
-                objectId: "(SAP__Origin='NA',InstanceID='b2e6d324-c7ab-11ed-a0c1-eeee0a8daf24')"
-            }
+                    objectId: "(SAP__Origin='NA',InstanceID='b2e6d324-c7ab-11ed-a0c1-eeee0a8daf24')"
+                }
             );
         },
-
 
 
         /**
@@ -667,7 +662,8 @@ sap.ui.define([
                     this.setModel(new JSONModel(oRetrievedResult), "TaskDefinitions");
                     this.getWorkflowDefinitions();
                 }.bind(this),
-                error: function (oError) { /* do something */ }
+                error: function (oError) { /* do something */
+                }
             });
         },
 
@@ -761,6 +757,11 @@ sap.ui.define([
                 });
                 index++;
             }
+            // result.push({
+            //     "process": "Leave Request",
+            //     "count": 3,
+            //     "color": aColors[index]
+            // })
             var oProcessCountModel = new JSONModel(result);
             this.setModel(oProcessCountModel, "ProcessCountModel");
 
@@ -777,6 +778,13 @@ sap.ui.define([
                 });
                 index++;
             }
+            // aStatus.push(
+            //     {
+            //         "status": "Leave Requests",
+            //         "count": 3,
+            //         "color": aColors[index]
+            //     }
+            // )
             // aStatus.unshift({"status":"Total Tasks",
             //         "count": aRows.length,
             //         "color": 'Critical'});
@@ -804,12 +812,12 @@ sap.ui.define([
                     dataPointStyle: {
                         "rules":
                             [{
-                                "dataContext": [{ "process": "*poprocess" }],
-                                "properties": { "color": "sapUiChartPaletteSequentialHue1" },
+                                "dataContext": [{"process": "*poprocess"}],
+                                "properties": {"color": "sapUiChartPaletteSequentialHue1"},
                                 "displayName": "Running"
                             }, {
-                                "dataContext": [{ "process": "*leave" }],
-                                "properties": { "color": "sapUiChartPaletteSemanticGood" },
+                                "dataContext": [{"process": "*leave"}],
+                                "properties": {"color": "sapUiChartPaletteSemanticGood"},
                                 "displayName": "Completed"
                             }]
 
@@ -858,7 +866,7 @@ sap.ui.define([
 
         onClaimRelease: function (oEvent) {
             var oTask = oEvent.getSource().getBindingContext().getObject();
-            var oParam = { SAP__Origin: "'NA'", InstanceID: "'" + oTask.InstanceID + "'" };
+            var oParam = {SAP__Origin: "'NA'", InstanceID: "'" + oTask.InstanceID + "'"};
             var sPath = "";
             if (oTask.Status === 'READY') {
                 sPath = "bpmworkflowruntime/public/workflow/odata/v1/tcm/Claim?";
@@ -884,14 +892,21 @@ sap.ui.define([
                 this.getView().addDependent(this.FORWARDDLG);
                 // this.FORWARDDLG.setTitle("Select User");
             }
-            this.FORWARDDLG.setModel(new JSONModel({ taskID: sTaskId }));
+            this.FORWARDDLG.setModel(new JSONModel({taskID: sTaskId}));
             this.FORWARDDLG.open();
         },
         onPressForward: function (oEvent) {
             var oForwardData = this.FORWARDDLG.getModel().getData();
-            var sParams = jQuery.param({ SAP__Origin: "'NA'", InstanceID: "'" + oForwardData.taskID + "'", ForwardTo: "'" + oForwardData.UniqueName + "'" })
+            var sParams = jQuery.param({
+                SAP__Origin: "'NA'",
+                InstanceID: "'" + oForwardData.taskID + "'",
+                ForwardTo: "'" + oForwardData.UniqueName + "'"
+            })
             var sPath = "bpmworkflowruntime/public/workflow/odata/v1/tcm/Forward?" + sParams;
-            this.callRESTService(sPath, "POST", this.TOKEN, function () { this.closeForwardDialog(); sap.m.MessageToast.show("Forward Complete!"); });
+            this.callRESTService(sPath, "POST", this.TOKEN, function () {
+                this.closeForwardDialog();
+                sap.m.MessageToast.show("Forward Complete!");
+            });
         },
         closeForwardDialog: function () {
             if (this.FORWARDDLG) {

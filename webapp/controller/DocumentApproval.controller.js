@@ -414,10 +414,18 @@ sap.ui.define([
 
             let sPath = this.getModulePath() + `/docapprsrv/service/general/DOCUMENT_TABLE(ID=${wfContext.docid})`;
 
-            let oDefModel = new sap.ui.model.json.JSONModel();
-            oDefModel.loadData(
-                sPath, null, false, 'GET'
-            );
+            let oDefModel = new sap.ui.model.json.JSONModel({
+                ID: "DOC00001",
+                DOC_TYPE: "Purchase Document",
+                NAME: "Purchase Agreement.pdf",
+                MIME_TYPE: "application/pdf",
+                STATUS: "PENDING",
+                CREATED_AT: "2023-11-14T04:46:05",
+                CREATED_BY: "oauth"
+            });
+            // oDefModel.loadData(
+            //     sPath, null, false, 'GET'
+            // );
 
             this.setModel(oDefModel, "documentService");
 
