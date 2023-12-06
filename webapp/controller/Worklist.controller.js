@@ -569,7 +569,7 @@ sap.ui.define([
                 sRoute = 'customer';
             } else if (sProcess === 'salesEmpTagUntagProcess') {
                 sRoute = 'sales';
-            } else if (sProcess === 'purchaseOrderProcess') {
+            } else if (sProcess === 'purchaseOrderFlow') { // purchaseOrderFlow
                 sRoute = 'po';
             } else if (sProcess === 'documentApprovalVerification') {
                 sRoute = 'da';

@@ -1,241 +1,246 @@
 <mvc:View controllerName="com.ncs.btp.buildinbox.controller.PurchaseOrder"
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns:uxap="sap.uxap"
-    xmlns="sap.m"
-    xmlns:l="sap.ui.layout"
-    xmlns:f="sap.ui.layout.form"
-    xmlns:core="sap.ui.core" height="100%">
-    <uxap:ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false" showFooter="true">
-        <uxap:headerTitle>
-            <!-- <uxap:ObjectPageHeader objectTitle="Section sample">
-			</uxap:ObjectPageHeader> -->
-            <uxap:ObjectPageDynamicHeaderTitle>
-                <uxap:expandedHeading>
-                    <Title text="{TaskDetails>/subject}" wrapping="true"/>
-                </uxap:expandedHeading>
+          xmlns:mvc="sap.ui.core.mvc"
+          xmlns="sap.m"
+          xmlns:f="sap.f"
+          xmlns:layout="sap.ui.layout"
+          xmlns:form="sap.ui.layout.form"
+          xmlns:core="sap.ui.core" height="100%">
+    <f:DynamicPage id="dynamicPageId" stickySubheaderProvider="iconTabBar" class="sapUiNoContentPadding" showFooter="true" toggleHeaderOnTitleClick="{/titleClickable}">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{TaskTitle}"/>
+                </f:heading>
 
-                <uxap:snappedHeading>
-                    <FlexBox fitContainer="true" alignItems="Center">
-                        <!-- <Avatar src="sap-icon://picture" backgroundColor="Random" class="sapUiTinyMarginEnd"/> -->
-                        <Title text="{TaskDetails>/subject}" wrapping="true" />
-                    </FlexBox>
-                </uxap:snappedHeading>
-
-                <uxap:expandedContent>
-                    <Text text="{TaskDetails>/subject}"/>
-                </uxap:expandedContent>
-
-                <uxap:snappedContent>
-                    <Text text="{TaskDetails>/subject}"/>
-                </uxap:snappedContent>
-
-                <uxap:snappedTitleOnMobile>
-                    <Title text="{TaskDetails>/subject}"/>
-                </uxap:snappedTitleOnMobile>
-
-            </uxap:ObjectPageDynamicHeaderTitle>
-        </uxap:headerTitle>
-
-        <uxap:headerContent>
-            <FlexBox wrap="Wrap">
-                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
-                    <ObjectStatus title="Requested By" text="{TaskDetails>/createdBy}"/>
-                    <ObjectStatus title="Requested On" text="{ path: 'TaskDetails>/createdAt', type: 'sap.ui.model.type.DateTime', formatOptions: { style: 'short' }}"/>
-
-                </l:VerticalLayout>
-                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
-
-                    <ObjectStatus title="Status" text="{TaskDetails>/status}"/>
-                    <ObjectStatus title="Priority" text="{TaskDetails>/priority}"/>
-                </l:VerticalLayout>
-            </FlexBox>
-            <!-- <ObjectAttribute title="" text="This example explains the rules for the rendering of sections"/> -->
-        </uxap:headerContent>
-
-        <uxap:sections>
-            <uxap:ObjectPageSection titleUppercase="false" title="Business Partner Details">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection titleUppercase="false">
-                        <uxap:blocks>
-                            <f:Form editable="false">
-                                <f:title>
-                                    <!-- <core:Title text="Basic Details" /> -->
-                                </f:title>
-                                <f:layout>
-                                    <f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false" />
-                                </f:layout>
-                                <f:formContainers>
-                                    <f:FormContainer title="Basic Details">
-                                        <f:formElements>
-                                            <f:FormElement label="PO Number">
-                                                <f:fields>
-                                                    <Text text="{poService>Ebeln}" />
-                                                </f:fields>
-                                            </f:FormElement>
-                                            <f:FormElement label="Company Code ">
-                                                <f:fields>
-                                                    <Text text="{poService>Bukrs}" />
-                                                </f:fields>
-                                            </f:FormElement>
-                                            <f:FormElement label="Purchase Group">
-                                                <f:fields>
-                                                    <Text text="{poService>Ekgrp}" />
-                                                </f:fields>
-                                            </f:FormElement>
-                                            <f:FormElement label="Total Value of PO">
-                                                <f:fields>
-                                                    <Text text="{poService>Rlwrt}" />
-                                                </f:fields>
-                                            </f:FormElement>
-                                              <f:FormElement label="Doc Type">
-                                                <f:fields>
-                                                    <Text text="{poService>Bsart}" />
-                                                </f:fields>
-                                            </f:FormElement>
-                                             <f:FormElement label="Vendor Code">
-                                                <f:fields>
-                                                    <Text text="{poService>Lifnr}" />
-                                                </f:fields>
-                                            </f:FormElement>
-                                             <f:FormElement label="Vendor Name">
-                                                <f:fields>
-                                                    <Text text="{poService>Description}" />
-                                                </f:fields>
-                                            </f:FormElement>
-                                             <f:FormElement label="Currency">
-                                                <f:fields>
-                                                    <Text text="{poService>Waers}" />
-                                                </f:fields>
-                                            </f:FormElement>
-                                        
-                                        </f:formElements>
-                                    </f:FormContainer>
-                                 
-                                </f:formContainers>
-                            </f:Form>
-                        </uxap:blocks>
-                    </uxap:ObjectPageSubSection>
-
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
+                <f:expandedContent>
+                    <Label text="{TaskDefinitionName}"/>
+                </f:expandedContent>
+                <f:snappedContent>
+                    <Label text="{TaskDefinitionName}"/>
+                </f:snappedContent>
+                <f:snappedTitleOnMobile>
+                    <Title text="{TaskDefinitionName}"/>
+                </f:snappedTitleOnMobile>
 
 
-            <uxap:ObjectPageSection titleUppercase="false" title="Line Items">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection titleUppercase="false">
-                        <uxap:blocks>
-                            <Table inset="false" items="{
-                                    path: 'poService>POHeadItemSetNav'
-                                }">
-                                <headerToolbar>
-                                    <OverflowToolbar>
-                                        <content>
-                                            <!-- <Title text="Products" level="H2"/> -->
-                                            <ToolbarSpacer />
+            </f:DynamicPageTitle>
+        </f:title>
+        <!-- DynamicPage Header -->
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <layout:HorizontalLayout allowWrapping="true">
+                    <layout:VerticalLayout class="sapUiMediumMarginEnd">
+                        <ObjectAttribute title="Created By" text="{CreatedBy}"/>
+                        <ObjectAttribute title="Submitted Date" text="{ path: 'CreatedOn', type: 'sap.ui.model.type.DateTime', formatOptions: { style: 'short' } }"/>
 
-                                        </content>
-                                    </OverflowToolbar>
-                                </headerToolbar>
+                    </layout:VerticalLayout>
 
-                                <columns>
-                                    <Column minScreenWidth="Tablet" demandPopin="true">
-                                        <Text text="PO Line Item"/>
-                                    </Column>
-                                    <Column minScreenWidth="Tablet" demandPopin="true">
-                                        <Text text="Material Code"/>
-                                    </Column>
-                                    <Column minScreenWidth="Tablet" demandPopin="true">
-                                        <Text text="Short Text"/>
-                                    </Column>
-                                    <Column minScreenWidth="Tablet" demandPopin="true">
-                                        <Text text="PO Quantity"/>
-                                    </Column>
-                                    <Column minScreenWidth="Tablet" demandPopin="true">
-                                        <Text text="Net Price"/>
-                                    </Column>
-                                    <Column minScreenWidth="Tablet" demandPopin="true">
-                                        <Text text="Delivery Date"/>
-                                    </Column>
-                                     <Column minScreenWidth="Tablet" demandPopin="true">
-                                        <Text text="GL Account "/>
-                                    </Column>
-                                    <Column minScreenWidth="Tablet" demandPopin="true">
-                                        <Text text="Cost Center  "/>
-                                    </Column>
-                                     <Column minScreenWidth="Tablet" demandPopin="true">
-                                        <Text text="Profit Center  "/>
-                                    </Column>
-                                </columns>
-                                <items>
-                                    <ColumnListItem vAlign="Middle">
-                                        <cells>
-                                            <Text text="{poService>Ebelp}" />
-                                            <Text text="{poService>Matnr}" />
-                                            <Text text="{poService>Txz01}" />
-                                            <Text text="{poService>Menge}" />
-                                            <Text text="{poService>Netpr}" />
-                                            <Text text="{poService>Eindt}" />
-                                            <Text text="{poService>Sakto}" />
-                                            <Text text="{poService>Kostl}" />
-                                            <Text text="{poService>KoPrctr}" />
-                                        </cells>
-                                    </ColumnListItem>
-                                </items>
-                            </Table>
-                        </uxap:blocks>
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
+                    <layout:VerticalLayout>
+                        <ObjectAttribute title="Status" text="{Status}"/>
+                        <ObjectStatus title="Priority" text="{Priority}" state="Warning" />
+                    </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <VBox>
 
-            <uxap:ObjectPageSection titleUppercase="false" title="Comments">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection titleUppercase="false">
-                        <uxap:blocks>
-                            <l:VerticalLayout class="sapUiContentPadding" width="100%">
-                                <l:content>
-                                    <TextArea value="{commentsModel>/comments}" maxLength="40" placeholder="Enter your comments" width="100%"/>
+                <IconTabBar id="iconTabBarleave" visible="{ path: 'TaskDefinitionName', formatter: '.formatter.isLeaveRequest' }" class="sapUiResponsiveContentPadding">
+                    <items>
+                        <IconTabFilter icon="sap-icon://hint" key="key111">
+                            <layout:VerticalLayout class="sapUiContentPadding sapUiSmallMargin" width="100%">
+                                <layout:content>
 
-                                    <FeedContent 
-                                        visible="{= ${poService>L1comments} === '' ? false : true }" 
-                                        contentText="{poService>L1comments}" 
-                                        subheader="by L1 Approver">
-                                    </FeedContent>
+                                    <!-- <VBox class="sapUiSmallMargin"> -->
+                                    <form:SimpleForm id="SimpleFormDisplay_Trial" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="6" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false">
+                                        <form:content>
+                                            <core:Title text="Leave Details" />
+                                            <Label text="Employee Name" />
+                                            <Text text="{TaskContextData>/empname}" />
+                                            <Label text="Leave Type" />
+                                            <Text text="{TaskContextData>/leaveType}" />
 
-                                    <FeedContent 
-                                        visible="{= ${poService>L2comments} === '' ? false : true }" 
-                                        contentText="{poService>L2comments}" 
-                                        subheader="by L2 Approver">
-                                    </FeedContent>
+                                            <Label text="From Date" />
 
-                                    <FeedContent 
-                                        visible="{= ${poService>L3comments} === '' ? false : true }" 
-                                        contentText="{poService>L3comments}" 
-                                        subheader="by L3 Approver">
-                                    </FeedContent>
-                               
-                                    <!-- <List showSeparators="Inner" items="{/EntryCollection}">
-                                        <FeedListItem sender="{Author}" info="{Type}" timestamp="{Date}" text="{Text}" convertLinksToAnchorTags="All"/>
-                                    </List> -->
+                                            <Text text="{ path: 'TaskContextData>/fromdate',type: 'sap.ui.model.type.DateTime',formatOptions: {source: {pattern: 'yyyy-MM-ddTHH:mm:ss.SSSX'},pattern: 'dd/MM/yyyy'}}" />
+                                            <Label text="To Date" />
 
-                                </l:content>
-                            </l:VerticalLayout>
-                        </uxap:blocks>
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
+                                            <Text text="{ path: 'TaskContextData>/todate',type: 'sap.ui.model.type.DateTime',formatOptions: {source: {pattern: 'yyyy-MM-ddTHH:mm:ss.SSSX'},pattern: 'dd/MM/yyyy'}}" />
+                                            <Label text="No. of Days" />
+                                            <Text text="{TaskContextData>/leavedays}" />
+                                            <Label text="Reason" />
+                                            <Text text="{TaskContextData>/reason}" />
+                                            <Label text="Comments" />
+                                            <TextArea value="" placeholder="Enter your comments" rows="3"/>
+                                        </form:content>
+                                    </form:SimpleForm>
+                                </layout:content>
+                            </layout:VerticalLayout>
+                        </IconTabFilter>
+                    </items>
+                </IconTabBar>
+                <IconTabBar id="iconTabBar" visible="{ path: 'TaskDefinitionName', formatter: '.formatter.isPORequest' }" class="sapUiResponsiveContentPadding">
+                    <items>
+                        <IconTabFilter icon="sap-icon://hint" key="key1">
+                            <layout:VerticalLayout class="sapUiContentPadding sapUiSmallMargin" width="100%">
+                                <layout:content>
+
+                                    <!-- <VBox class="sapUiSmallMargin"> -->
+                                    <form:SimpleForm id="SimpleFormDisplay480_Trial" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="6" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false">
+                                        <form:content>
+                                            <core:Title text="Basic Data" />
+                                            <Label text="Purchase Order" />
+                                            <Text text="{TaskContextData>/RequestId}" />
+                                            <Label text="Vendor Name" />
+                                            <Text text="{TaskContextData>/BasicData/supplier}" />
+                                            <Label text="Vendor Code" />
+                                            <Text text="{TaskContextData>/BasicData/vendorcode}" />
+                                            <Label text="Created By" />
+                                            <Text text="{TaskContextData>/Requester/Name}" />
+                                            <Label text="Created On" />
+                                            <Text text="{TaskContextData>/Requester/RequestDate}" />
+                                            <Label text="Net Value" />
+                                            <Text text="{TaskContextData>/BasicData/netValue}" />
+                                            <core:Title text="Recipient" />
+                                            <Label text="Company Code" />
+                                            <Text text="{TaskContextData>/Receipent/cc}" />
+                                            <Label text="Purchasing Group" />
+                                            <Text text="{TaskContextData>/Receipent/purchGroup}" />
+                                            <Label text="Purch. Organization" />
+                                            <Text text="{TaskContextData>/Receipent/purchOrg}" />
+
+                                        </form:content>
+                                    </form:SimpleForm>
+                                    <Table id="idProductsTable" inset="false" items="{TaskContextData>/products}">
+                                        <headerToolbar>
+                                            <OverflowToolbar>
+                                                <content>
+                                                    <Title text="Line Items" level="H2"/>
+                                                    <ToolbarSpacer />
+                                                </content>
+                                            </OverflowToolbar>
+                                        </headerToolbar>
+                                        <columns>
+                                            <Column width="5em">
+                                                <Text text="Item" />
+                                            </Column>
+
+                                            <Column>
+                                                <Text text="Material" />
+                                            </Column>
+                                            <Column >
+                                                <Text text="Material Group" />
+                                            </Column>
+
+                                            <Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+                                                <Text text="Delivery Date" />
+                                            </Column>
+                                            <Column hAlign="End" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+                                                <Text text="Order Quantity" />
+                                            </Column>
+                                            <Column hAlign="End" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+                                                <Text text="Net Order Price" />
+                                            </Column>
+
+                                            <Column hAlign="End" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+                                                <Text text="Net Order Value" />
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem vAlign="Middle">
+                                                <cells>
+                                                    <Text text="{TaskContextData>no}" />
+                                                    <ObjectIdentifier title="{TaskContextData>name}" text="{TaskContextData>desc}"/>
+                                                    <ObjectIdentifier title="{TaskContextData>matGroup}"/>
+                                                    <Text text="15/5/2022" />
+                                                    <Text text="{TaskContextData>poqty}" />
+                                                    <Text text="{TaskContextData>netorderprice}" />
+                                                    <Text text="{TaskContextData>netorderval}" />
+
+                                                </cells>
+                                            </ColumnListItem>
+                                            <!-- <ColumnListItem vAlign="Middle">
+                                                <cells>
+                                                    <Text text="20" />
+
+                                                    <ObjectIdentifier title="LED lights" text="D1201"/>
+                                                    <ObjectIdentifier title="Utilities" text="ZD001"/>
+                                                    <Text text="01/04/2022" />
+                                                    <Text text="20 PC" />
+                                                    <Text text="5000 SGD" />
+                                                    <Text text="100000 SGD" />
+
+                                                </cells>
+                                            </ColumnListItem> -->
+                                        </items>
+                                    </Table>
 
 
+                                </layout:content>
+                            </layout:VerticalLayout>
+                        </IconTabFilter>
+                        <IconTabFilter icon="sap-icon://notes"  key="key2">
+                            <layout:VerticalLayout class="sapUiContentPadding" width="20em">
+                                <layout:content>
+                                    <Label text="Comments" />
+                                    <TextArea value="" placeholder="Enter your comments" rows="3"/>
+                                </layout:content>
+                            </layout:VerticalLayout>
+                        </IconTabFilter>
+                        <IconTabFilter icon="sap-icon://attachment"  key="key3">
+                            <!-- <Link text="Attachment" press="onPress"/> -->
+                        </IconTabFilter>
 
-        </uxap:sections>
+                    </items>
+                </IconTabBar>
 
-        <uxap:footer>
+                <IconTabBar id="iconTabBarPO" visible="{ path: 'TaskDefinitionName', formatter: '.formatter.isAccountRequest' }" class="sapUiResponsiveContentPadding">
+                    <items>
+                        <IconTabFilter icon="sap-icon://hint" key="key333">
+                            <layout:VerticalLayout class="sapUiContentPadding sapUiSmallMargin" width="100%">
+                                <layout:content>
+
+                                    <!-- <VBox class="sapUiSmallMargin"> -->
+                                    <!-- <form:SimpleForm id="SimpleFormDisplay_account" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="6" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false"> -->
+                                    <form:SimpleForm id="SimpleFormDisplay_account" editable="true" layout="ResponsiveGridLayout" title="Re-Activate GeBIZ Account" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+                                        <form:content>
+                                            <core:Title text="Details" />
+                                            <Label text="Request ID" />
+                                            <Text text="{TaskContextData>/requestID}" />
+                                            <Label text="Date of Application" />
+                                            <Text text="{ path: 'TaskContextData>/date',type: 'sap.ui.model.type.DateTime',formatOptions: {source: {pattern: 'yyyy-MM-ddTHH:mm:ss.SSSX'},pattern: 'dd/MM/yyyy'}}" />
+
+                                            <Label text="Staff Name" />
+                                            <Text text="{TaskContextData>/name}" />
+                                            <Label text="PC Name/Sub-PC" />
+                                            <Text text="{TaskContextData>/pcName}" />
+                                            <Label text="Appointment Applied" />
+                                            <List>
+                                                <DisplayListItem label="QRO(ITQ)" />
+                                                <DisplayListItem label="QRO(PCPO/FAPO)" />
+                                            </List>
+                                            <Label text="Reason" />
+                                            <TextArea rows="3" value="{TaskContextData>/reason}" />
+                                            <Label text="Comments" />
+                                            <TextArea value="" placeholder="Enter your comments" rows="3"/>
+                                        </form:content>
+                                    </form:SimpleForm>
+                                </layout:content>
+                            </layout:VerticalLayout>
+                        </IconTabFilter>
+                    </items>
+                </IconTabBar>
+            </VBox>
+        </f:content>
+
+        <f:footer>
             <OverflowToolbar>
 
                 <ToolbarSpacer/>
                 <Button type="Accept" text="Approve" press="onAccept"/>
                 <Button type="Reject" text="Reject" press="onReject"/>
             </OverflowToolbar>
-        </uxap:footer>
-
-    </uxap:ObjectPageLayout>
+        </f:footer>
+    </f:DynamicPage>
 </mvc:View>

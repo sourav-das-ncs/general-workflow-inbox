@@ -189,7 +189,7 @@
                                             <f:FormElement label="Document Id">
                                                 <f:fields>
                                                     <Text
-                                                            text="{documentService>/ID}"
+                                                            text="{TaskContextData>/startEvent/docid}"
                                                     />
                                                 </f:fields>
                                             </f:FormElement>
@@ -198,7 +198,7 @@
                                             >
                                                 <f:fields>
                                                     <Text
-                                                            text="{documentService>/DOC_TYPE}"
+                                                            text="Po Document"
                                                     />
                                                 </f:fields>
                                             </f:FormElement>
@@ -207,7 +207,7 @@
                                             >
                                                 <f:fields>
                                                     <Text
-                                                            text="{documentService>/NAME}"
+                                                            text="{TaskContextData>/startEvent/docname}"
                                                     />
                                                 </f:fields>
                                             </f:FormElement>
@@ -216,7 +216,7 @@
                                             >
                                                 <f:fields>
                                                     <Text
-                                                            text="{documentService>/MIME_TYPE}"
+                                                            text="{TaskContextData>/startEvent/docmime}"
                                                     />
                                                 </f:fields>
                                             </f:FormElement>
@@ -229,10 +229,10 @@
                                                     />
                                                 </f:fields>
                                             </f:FormElement>
-                                            <f:FormElement label="Created At">
+                                            <f:FormElement label="Size">
                                                 <f:fields>
                                                     <Text
-                                                            text="{ path: 'documentService>/CREATED_AT', type: 'sap.ui.model.odata.type.DateTimeOffset', formatOptions: { style: 'long' }}"
+                                                            text="{TaskContextData>/startEvent/docsize}"
                                                     />
                                                 </f:fields>
                                             </f:FormElement>

@@ -113,49 +113,49 @@
                                         <f:FormElement label="Requester Name">
                                             <f:fields>
                                                 <Text
-                                                        text="{LR>/BasicData/empname}"
+                                                        text="{TaskContextData>/startEvent/empname}"
                                                 />
                                             </f:fields>
                                         </f:FormElement>
                                         <f:FormElement label="Leave Type">
                                             <f:fields>
                                                 <Text
-                                                        text="{LR>/BasicData/leaveType}"
+                                                        text="{TaskContextData>/startEvent/leavereqtype}"
                                                 />
                                             </f:fields>
                                         </f:FormElement>
                                         <f:FormElement label="Starts at">
                                             <f:fields>
                                                 <Text
-                                                        text="{LR>/BasicData/fromdate}"
+                                                        text="{TaskContextData>/startEvent/fromdate}"
                                                 />
                                             </f:fields>
                                         </f:FormElement>
                                         <f:FormElement label="Ends at">
                                             <f:fields>
                                                 <Text
-                                                        text="{LR>/BasicData/todate}"
+                                                        text="{TaskContextData>/startEvent/todate}"
                                                 />
                                             </f:fields>
                                         </f:FormElement>
                                         <f:FormElement label="Total days">
                                             <f:fields>
                                                 <Text
-                                                        text="{LR>/BasicData/leavedays}"
+                                                        text="{TaskContextData>/startEvent/leavedays}"
                                                 />
                                             </f:fields>
                                         </f:FormElement>
                                         <f:FormElement label="Reason">
                                             <f:fields>
                                                 <Text
-                                                        text="{LR>/BasicData/reason}"
+                                                        text="{TaskContextData>/startEvent/reason}"
                                                 />
                                             </f:fields>
                                         </f:FormElement>
                                         <f:FormElement label="Return Date">
                                             <f:fields>
                                                 <Text
-                                                        text="{LR>/BasicData/return}"
+                                                        text="{TaskContextData>/startEvent/_return}"
                                                 />
                                             </f:fields>
                                         </f:FormElement>
@@ -163,6 +163,13 @@
                                             <f:fields>
                                                 <Text
                                                         text="Adam"
+                                                />
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Period">
+                                            <f:fields>
+                                                <Text
+                                                        text="{TaskContextData>/startEvent/period}"
                                                 />
                                             </f:fields>
                                         </f:FormElement>
@@ -178,7 +185,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection titleUppercase="false">
                         <uxap:blocks>
-                            <Table inset="false" items="{LR>/attachedDocuments}">
+                            <Table inset="false" items="{TaskContextData>/startEvent/attachments}">
 <!--                                <headerToolbar>-->
 <!--                                    <OverflowToolbar>-->
 <!--                                        <content>-->
@@ -206,9 +213,9 @@
                                 <items>
                                     <ColumnListItem vAlign="Middle">
                                         <cells>
-                                            <Text text="{LR>name}" />
-                                            <Text text="{LR>type}" />
-                                            <Text text="{LR>size}" />
+                                            <Text text="{TaskContextData>doc_name}" />
+                                            <Text text="{TaskContextData>type}" />
+                                            <Text text="{TaskContextData>size}" />
                                             <Button text="Download"></Button>
                                         </cells>
                                     </ColumnListItem>

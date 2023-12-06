@@ -225,15 +225,15 @@ sap.ui.define([
             try {
 
                 // await this.updateService('A');
-                //
-                // var sPath = this.getModulePath() + "/bpmworkflowruntime/public/workflow/rest/v1/task-instances/" + this.taskID.split(",")[1].split("'")[1];
-                // var oPayload = {
-                //     "status": "COMPLETED",
-                //     "decision": "approve"
-                // };
+
+                var sPath = this.getModulePath() + "/bpmworkflowruntime/public/workflow/rest/v1/task-instances/" + this.taskID.split(",")[1].split("'")[1];
+                var oPayload = {
+                    "status": "COMPLETED",
+                    "decision": "approve"
+                };
 
 
-                // await this.completeTask(sPath, oPayload);
+                await this.completeTask(sPath, oPayload);
 
                 let sMessage = "Request approved";
 
